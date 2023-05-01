@@ -426,6 +426,7 @@ pithy
 pixie
 plant
 plate
+plaza
 pleat
 pluck
 point
