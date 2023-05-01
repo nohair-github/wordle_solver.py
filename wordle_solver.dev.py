@@ -972,7 +972,7 @@ for i in range(6):
     # Tabulate and display results for Step 3
     current_answers = len(current_answers_list)
     count = len(wrong)
-    if count > 1:
+    if count >= 1:
         print("After selecting answers which do not match '"  + wrong + "' ,")
         print(str(current_answers) + " words are left from initial " + str(total_answers) )
         print()
