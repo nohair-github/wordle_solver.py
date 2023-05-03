@@ -1149,7 +1149,7 @@ for i in range(6):
     if hard == 1:
         print("You are playing in hard mode.")
 
-    display_valid_guesses()
+        display_valid_guesses()
 
     # End of Step 5
     

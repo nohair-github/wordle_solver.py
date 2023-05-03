@@ -565,6 +565,7 @@ stout
 stove
 study
 sugar
+sulky
 surer
 surly
 sweat
