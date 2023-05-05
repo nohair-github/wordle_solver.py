@@ -115,7 +115,6 @@ begat
 beget
 begun
 belle
-below
 beret
 berry
 betel
@@ -656,7 +655,6 @@ guise
 gulch
 gumbo
 gummy
-guppy
 gusto
 gusty
 gypsy
