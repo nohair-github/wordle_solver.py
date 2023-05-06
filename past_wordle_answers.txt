@@ -26,6 +26,7 @@ altar
 alter
 amber
 ample
+anger
 angry
 antic
 aorta
