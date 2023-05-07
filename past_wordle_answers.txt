@@ -255,6 +255,7 @@ gaudy
 gauze
 gawky
 gecko
+ghoul
 giant
 girth
 glass

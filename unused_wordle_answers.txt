@@ -593,7 +593,6 @@ geese
 genie
 genre
 ghost
-ghoul
 giddy
 gipsy
 girly
