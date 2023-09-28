@@ -306,7 +306,6 @@ coven
 cover
 covet
 covey
-cower
 crack
 craft
 crane
