@@ -292,6 +292,7 @@ gully
 guppy
 hairy
 happy
+hardy
 hatch
 havoc
 heady
