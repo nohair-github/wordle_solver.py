@@ -349,6 +349,7 @@ leave
 ledge
 leery
 lemon
+lever
 libel
 light
 lilac

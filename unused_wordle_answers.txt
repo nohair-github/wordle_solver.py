@@ -775,7 +775,6 @@ leggy
 lemur
 leper
 level
-lever
 liege
 liken
 limbo

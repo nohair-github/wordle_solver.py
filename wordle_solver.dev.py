@@ -731,7 +731,7 @@ for i in range(6):
     current_answers = len(current_answers_list)
 
     if mode ==2:
-        print("Partial matches \('partial'\) are " + partial + ".")
+        print("Partial matches ('partial') are " + partial + ".")
         print()
 
     for letter in partial:
