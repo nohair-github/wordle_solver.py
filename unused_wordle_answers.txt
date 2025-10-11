@@ -1336,7 +1336,6 @@ spunk
 spurn
 spurt
 squib
-stack
 stain
 stake
 stalk
