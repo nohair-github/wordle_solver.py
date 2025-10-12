@@ -680,6 +680,7 @@ wooer
 world
 worry
 worse
+wound
 woven
 wrote
 wrung
