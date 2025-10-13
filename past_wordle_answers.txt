@@ -60,6 +60,7 @@ baton
 batty
 bayou
 beady
+beard
 beefy
 begin
 being
