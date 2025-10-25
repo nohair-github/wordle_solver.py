@@ -576,7 +576,6 @@ gaffe
 gaily
 gamut
 gassy
-gauge
 gaunt
 gavel
 gayer

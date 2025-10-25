@@ -258,6 +258,7 @@ fungi
 gamer
 gamma
 gaudy
+gauge
 gauze
 gawky
 gecko
