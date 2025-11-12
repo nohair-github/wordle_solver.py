@@ -172,6 +172,7 @@ delve
 denim
 depot
 depth
+deuce
 digit
 ditto
 dodge
