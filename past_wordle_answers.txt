@@ -374,6 +374,7 @@ madam
 magic
 maize
 major
+maker
 manly
 manor
 maple
