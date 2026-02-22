@@ -292,6 +292,7 @@ grove
 growl
 gruel
 guano
+guava
 guild
 gully
 guppy
