@@ -1247,7 +1247,6 @@ slept
 slice
 slick
 slide
-slime
 slimy
 sling
 slink

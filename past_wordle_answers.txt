@@ -533,6 +533,7 @@ skill
 skirt
 slate
 sleek
+slime
 slosh
 sloth
 slump
