@@ -1427,7 +1427,6 @@ terra
 terse
 testy
 thank
-theft
 these
 theta
 thick

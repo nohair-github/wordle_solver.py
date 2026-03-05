@@ -605,6 +605,7 @@ tasty
 taunt
 tease
 tepid
+theft
 their
 theme
 there
