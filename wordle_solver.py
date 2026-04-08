@@ -10,11 +10,14 @@
 # Version 0.01: adaptation from zsh shell script v0.03 to python 3.10.6+
 # Version 0.02: added analysis section, added verbosity flags, dropped use of re module, bugfixes.
 # Version 0.03: further bug fixes, last version with old valid word lists and answer list.
+# Version 0.04: between Nov 2022 and Feb 2023, NYTimes editors changed the valid word lists and answers lists.
+#   Now the answers are "curated" which means? Perhaps any word from original answer list can be used again
+#   as the answer - like "snafu" on Apr 9 - or perhaps any word from the valid guess list, or any word at all.
+#   Version 0.04 changed so both valid guess list, complete answer list, and unused answer list are analyzed, displayed,
+#   and can be checked.
 
-# Dev: Between Nov 2022 and Feb 2023, NYTimes editors changed the valid word lists and answers lists.
-# Now the answers are "curated" which means? Perhaps any word from total (valid) word list can be used
-# as the answer - like "snafu" on Apr 9. Or, for that matter, any word at all.
-# Dev version changed so both valid guess list and potential answer list are analyzed and can be checked.
+# Dev: Changes after 10/10/25 -
+#
 
 import sys
 import os
