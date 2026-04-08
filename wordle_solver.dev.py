@@ -187,7 +187,7 @@ def update_past_answer_list():
     else:
         print("Be sure to update past_wordle_answers.txt.")
 
-# Update unused_sordle_answers.txt file       
+# Update unused_wordle_answers.txt file       
 
 def update_unused_answer_list():
 
