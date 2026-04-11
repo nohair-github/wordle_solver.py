@@ -1015,7 +1015,6 @@ proof
 prose
 proud
 prowl
-prude
 prune
 psalm
 pubic
