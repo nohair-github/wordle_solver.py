@@ -892,7 +892,7 @@ for i in range(6):
 
     # Display results if desired
     if mode >= 1:
-        if yesno("Display current answer list after step2? (y/n)"):
+        if yesno("Display current answer list? (y/n)"):
             for word in current_answers_list:
                 print(word)
             print()
