@@ -17,7 +17,15 @@
 #   and can be checked.
 
 # Dev: Changes after 10/10/25 -
-# 
+#   Corrected typos
+#   Moved entry section to function "enter_guess()"
+#   Debug testing of enter_guess()
+#   Rump/placeholder entry to 'solve_curated_answer()' function
+#
+#   To be done: refactor code to a set of functions which can be used to solve puzzle
+#   with either a new answer from the existing answer list or a 'curated' answer either duplicating
+#   a previous puzzle answer, an answer from the valid guess list, or even a word not in any list
+#
 
 import sys
 import os
@@ -50,6 +58,81 @@ def yesno(question):
     if ans == 'y':
         return True
     return False
+
+
+# Function to enter and sanatize entry of guess
+
+def enter_guess():
+    #global guess_word
+
+    while True:
+        print("Enter guesses as 5 letter word in lowercase.")
+        print()
+        guess_word = input("Enter guess:")
+
+        # Trap null entries
+        if len(guess_word) == 0:
+            print("Guess is null - try again")
+
+        # Trap guesses containing blanks/spaces
+        elif ' ' in guess_word:
+            print("Guess contains spaces or blanks - try again.")  
+
+        # Trap enties =/= to 5 letters
+        elif len(guess_word) != 5:
+            print("Guess must be 5 letters long")
+
+        # Check if numerals or special characters are in guess_word
+        elif not guess_word.isalpha():
+            print("No numerals or special characters allowed.")
+            
+        # Check if guess contains uppercase and changes to lowercase with alert
+        elif not guess_word.islower():
+            print("Entry error. Entries should be all in lowercase")
+        
+        # Confirm entry
+        elif not yesno("You entered " + guess_word + ". Correct"):
+            print("You entered n")
+            print("Error in entering guess.")
+
+        else:
+            if mode >= 1:
+                print("You entered y")
+
+            # Check if entry is in valid guess list
+            if mode >= 1:
+                print("Checking whether guess is in valid guess list")
+            print()
+            
+            if not guess_word in valid_guesses:
+                print(guess_word + " is not a Wordle's valid guess list")
+                print()
+                
+            else:
+                if hard == 0:
+                    print(guess_word + " is a valid guess")
+                    print()
+                    break
+
+                else:
+                    if i == 0:
+                        if mode == 2:
+                            print("First interation: abridged_valid_guesses not yet defined")
+                        print(guess_word + " is a valid guess.")
+                        
+                    else:
+                        if not guess_word in abridged_valid_guesses:
+                            print(guess_word + " is not a valid guess (hard mode).")
+                
+                break
+        
+    # Add entry to to guess - list of guesses
+    guess.append(guess_word)
+    if mode == 2:
+        print("Guess #", i+1, "is ", guess[i])
+
+    return(guess_word)
+
 
 # Function to check if word is in list
 
@@ -328,7 +411,15 @@ def display_valid_guesses():
         for k, v in abridged_guesses_sorted:
             print(k, ' ', v)
 
-   
+def solve_curated_answer():
+    print("Function to solve wordle using valid guess list.")
+    print("Current answer is " + ANSWER)
+    print("Printing current valid guess list.")
+    display_valid_guesses()
+    print("The answer in likely in this list.")
+    print("Under development.")
+    sys.exit(1)
+
 ## Start-up
         
 # Clear old tmp files from prior runs
@@ -377,6 +468,8 @@ for word in current_answers_list:
         print("Possible error/corruption in wordle_answers.txt file.")
         sys.exit("Error, line 322")
 
+# Preload valid_guesses with valid_guess_list.txt
+
 # Read file 'valid_guess_list.txt' and convert to list
 with open('new_total_word_list.txt', 'r') as my_file:
     valid_guesses = my_file.readlines()
@@ -421,6 +514,7 @@ if mode == 2:
 
 guess = []
 
+
 for i in range(6):
     if mode == 2:
         print(i)
@@ -429,76 +523,18 @@ for i in range(6):
         print()
 
     # Guess selector: display guesses which contain desired letters
-
-    # Entry section
-    while True:
-        print("Enter guesses as 5 letter word in lowercase.")
-        print()
-        guess_word = input("Enter guess:")
-
-        # Trap null entries
-        if len(guess_word) == 0:
-            print("Guess is null - try again")
-
-        # Trap guesses containing blanks/spaces
-        elif ' ' in guess_word:
-            print("Guess contains spaces or blanks - try again.")  
-
-        # Trap enties =/= to 5 letters
-        elif len(guess_word) != 5:
-            print("Guess must be 5 letters long")
-
-        # Check if numerals or special characters are in guess_word
-        elif not guess_word.isalpha():
-            print("No numerals or special characters allowed.")
-            
-        # Check if guess contains uppercase and changes to lowercase with alert
-        elif not guess_word.islower():
-            print("Entry error. Entries should be all in lowercase")
-        
-        # Confirm entry
-        elif not yesno("You entered " + guess_word + ". Correct"):
-            print("You entered n")
-            print("Error in entering guess.")
-
-        else:
-            if mode >= 1:
-                print("You entered y")
-
-            # Check if entry is in valid guess list
-            if mode >= 1:
-                print("Checking whether guess is in valid guess list")
-            print()
-            
-            if not guess_word in valid_guesses:
-                print(guess_word + " is not a Wordle's valid guess list")
-                print()
-                
-            else:
-                if hard == 0:
-                    print(guess_word + " is a valid guess")
-                    print()
-                    break
-
-                else:
-                    if i == 0:
-                        if mode == 2:
-                            print("First interation: abridged_valid_guesses not yet defined")
-                        print(guess_word + " is a valid guess.")
-                        
-                    else:
-                        if not guess_word in abridged_valid_guesses:
-                            print(guess_word + " is not a valid guess (hard mode).")
-                
-                break
-        
-    # End of entry section
-        
-    # Add entry to to guess - list of guesses
-    guess.append(guess_word)
     if mode == 2:
-        print("Guess #", i+1, "1s ", guess[i])
-    print()
+        print("Calling 'enter_guess' function")
+
+    guess_word = enter_guess()
+    wrong = guess_word
+
+    if mode == 2:
+        print("Returned to main program, line 517")
+
+        print("guess_word is " + guess_word)
+        print("wrong is " + wrong)
+        print("guess[" + str(i) + "] is " + guess[i])
 
     # Analysis section
 
@@ -549,8 +585,6 @@ for i in range(6):
                 break
 
     # Count number of times each letter occurs in guess_word and deal with count
-
-    wrong = guess_word
 
     if len(correct) >= 1:
 
@@ -635,34 +669,7 @@ for i in range(6):
         # Tabulate results
         current_answers = len(current_answers_list)
         print("After matching for answers which contain " + correct + ",")
-        print(str(current_answers) + " words are left from initial " + str(total_answers) )
-
-        # If answer is found ( len(current_answers) = 1 ), write to ANSWER, and update past answer lists
-        if current_answers == 1:
-            ANSWER = ''.join(current_answers_list)
-            print("Wordle may be solved - assuming editors are using a word from the answer list.")
-            print("Answer is: ")
-            print(" " + ANSWER)
-            print()
-            print("Best to check and see if this solution actually solved the puzzle online. If so, proceed.")
-
-            if yesno("Did " + ANSWER + " solve the Wordle puzzle"):
-                update_past_answer_list()
-                sys.exit("Program completed")
-            else:
-                print("Perhaps this is a 'curated' answer which could be found in the valid guess list?")
-                if yesno("Print the current valid guess list for other possible solutions"):
-                    for word in abridged_valid_guesses:
-                         print(word)
-                    sys.exit("Program completed")
-
-
-        # Display results
-        if mode >= 1:
-            if yesno("Display current answer list"):
-                for word in current_answers_list:
-                    print(word)
-            print()
+        print(str(current_answers) + " words are left from initial " + str(total_answers) )        
 
     else:
         # No letters entered
@@ -684,6 +691,13 @@ for i in range(6):
     print()
 
     # End of Step 1
+
+    # Display results
+    if mode >= 1:
+        if yesno("Display current answer list?"):
+            for word in current_answers_list:
+                print(word)
+        print()
 
     #
     # Step 2: Select all words containing letters matched but in wrong position (yellow square)
@@ -862,41 +876,26 @@ for i in range(6):
         print("After selecting answers which partially match '" + partial + "',")
         print(str(current_answers) + " words are left from initial " + str(total_answers) + ".")
         print()
-
-    # If answer is found ( len(current_answers) = 1 ), write to ANSWER, and update past answer lists
-    if current_answers == 1:
-        ANSWER = ''.join(current_answers_list)
-        print("Wordle may be solved - assuming editors are using a word from the answer list.")
-        print("Answer is: ")
-        print(" " + ANSWER)
-        print()
-        print("Best to check and see if this solution actually solved the puzzle online. If so, proceed.")
-
-        if yesno("Did " + ANSWER + " solve the Wordle puzzle"):
-            update_past_answer_list()
-            sys.exit("Program completed")
-        else:
-            print("Perhaps this is a 'curated' answer which could be found in the valid guess list?")
-            if yesno("Print the current valid guess list for other possible solutions"):
-                for word in abridged_valid_guesses:
-                    print(word)
-                sys.exit("Program completed")
-
- 
-    # Display results if desired
-    if mode >= 1:
-        if yesno("Display current answer list"):
-            for word in current_answers_list:
-                print(word)
-            print()
    
     if mode >= 1:
         print("Done with step 2")
         print()
 
     if mode == 2:
+        print("ANSWER is now " + ANSWER)
         print("wrong is now " + wrong)
         print()
+
+    #
+    # End of step 2
+    #
+
+    # Display results if desired
+    if mode >= 1:
+        if yesno("Display current answer list after step2? (y/n)"):
+            for word in current_answers_list:
+                print(word)
+            print()
 
     #
     # Step 3: Eliminate words containing unmatched letters
@@ -975,7 +974,7 @@ for i in range(6):
     # Tabulate and display results for Step 3
     current_answers = len(current_answers_list)
     count = len(wrong)
-    if count >= 1:
+    if count > 1:
         print("After selecting answers which do not match '"  + wrong + "' ,")
         print(str(current_answers) + " words are left from initial " + str(total_answers) )
         print()
@@ -987,7 +986,7 @@ for i in range(6):
     # If answer is found ( len(current_answers) = 1 ), write to ANSWER, and update past answer lists
     if current_answers == 1:
         ANSWER = ''.join(current_answers_list)
-        print("Wordle may be solved - assuming editors are using a word from the answer list.")
+        print("Wordle may be solved - assuming editors are using a new word not from the original answer list.")
         print("Answer is: ")
         print(" " + ANSWER)
         print()
@@ -998,11 +997,26 @@ for i in range(6):
             sys.exit("Program completed")
         else:
             print("Perhaps this is a 'curated' answer which could be found in the valid guess list?")
-            if yesno("Print the current valid guess list for other possible solutions"):
-                for word in abridged_valid_guesses:
-                    print(word)
+            if yesno("Proceed to solve curated answer using valid guess list?"):
+                solve_curated_answer()
                 sys.exit("Program completed")
- 
+            else:
+                sys.exit("Program completed")
+
+    # If no matching word is found, search valid_guest_list for matches
+    if current_answers == 0:
+        ANSWER = ''.join(current_answers_list)
+        print("Wordle answer appears to be a new word not from the original answer list.")
+        print("Answer is: ")
+        print(" " + ANSWER)
+        print()
+        if yesno("Proceed to solve curated answer using valid guess list?"):
+            solve_curated_answer()
+            sys.exit("Program completed")
+        else:
+            sys.exit("Program completed")    
+
+
     # Display results for guess
     if yesno("Display current answer list after guess[" + str(i) + "]"):
         for word in current_answers_list:
@@ -1152,7 +1166,7 @@ for i in range(6):
     if hard == 1:
         print("You are playing in hard mode.")
 
-        display_valid_guesses()
+    display_valid_guesses()
 
     # End of Step 5
     
