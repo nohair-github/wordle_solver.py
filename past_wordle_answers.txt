@@ -18,6 +18,7 @@ ahead
 album
 alien
 alike
+alley
 allow
 aloft
 alone
@@ -594,6 +595,7 @@ sugar
 sulky
 surer
 surly
+swamp
 sweat
 sweep
 sweet

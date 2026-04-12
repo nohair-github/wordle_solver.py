@@ -34,7 +34,6 @@ alibi
 align
 alive
 allay
-alley
 allot
 alloy
 along
@@ -1375,7 +1374,6 @@ super
 surge
 sushi
 swami
-swamp
 swarm
 swash
 swath
