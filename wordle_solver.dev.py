@@ -22,10 +22,6 @@
 #   Debug testing of enter_guess()
 #   Rump/placeholder entry to 'solve_curated_answer()' function
 #
-#   To be done: refactor code to a set of functions which can be used to solve puzzle
-#   with either a new answer from the existing answer list or a 'curated' answer either duplicating
-#   a previous puzzle answer, an answer from the valid guess list, or even a word not in any list
-#
 
 import sys
 import os
@@ -694,7 +690,7 @@ for i in range(6):
 
     # Display results
     if mode >= 1:
-        if yesno("Display current answer list?"):
+        if yesno("Display current answer list"):
             for word in current_answers_list:
                 print(word)
         print()
@@ -892,7 +888,7 @@ for i in range(6):
 
     # Display results if desired
     if mode >= 1:
-        if yesno("Display current answer list? (y/n)"):
+        if yesno("Print current answer list"):
             for word in current_answers_list:
                 print(word)
             print()
