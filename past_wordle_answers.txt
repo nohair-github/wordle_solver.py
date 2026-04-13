@@ -197,6 +197,7 @@ dwelt
 egret
 eject
 elder
+elfin
 elope
 elude
 email
