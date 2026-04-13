@@ -93,7 +93,6 @@ banjo
 barge
 baron
 basal
-basil
 basin
 basis
 baste

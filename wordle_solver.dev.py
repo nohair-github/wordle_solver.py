@@ -20,7 +20,10 @@
 #   Corrected typos
 #   Moved entry section to function "enter_guess()"
 #   Debug testing of enter_guess()
-#   Rump/placeholder entry to 'solve_curated_answer()' function
+#   Added rump/placeholder entry to 'solve_curated_answer()' function
+#   Made quiet mode quieter:
+#       removed alert in Step 1 that letters are found in guess line 578 & 582
+#       removed alert in Step 2 that letters are found in guess line 737 & 744
 #
 
 import sys
@@ -574,10 +577,12 @@ for i in range(6):
                     print(letter + " does not appear in guess.")
                     invalid +=1
                 else:
-                    print(letter + " appears in guess.")
+                    if mode >= 1:
+                        print(letter + " appears in guess.")
 
             if invalid == 0:
-                print("All letters are found in guess.")
+                if mode >= 1:
+                    print("All letters are found in guess.")
                 break
 
     # Count number of times each letter occurs in guess_word and deal with count
@@ -732,10 +737,13 @@ for i in range(6):
                     print(letter + " does not appear in guess.")
                     invalid +=1
                 else:
-                    print(letter + " appears in guess.")
+                    if mode >= 1:
+                        print(letter + " appears in guess.")
+
 
             if invalid == 0:
-                print("All letters are found in guess.")
+                if mode >= 1:
+                    print("All letters are found in guess.")
                 print()
                 break
 
