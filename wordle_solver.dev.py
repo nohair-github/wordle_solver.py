@@ -3,7 +3,7 @@
 # wordle_solver.dev.py
 # Wordle solver python script by gsb
 
-# Developed on macos 16.1 (21.6.0 Darwin Kernel Version 21.6.0: root:xnu-8020.240.7~1/RELEASE_X86_64),
+# Developed on MacOS 16.1 (21.6.0 Darwin Kernel Version 21.6.0: root:xnu-8020.240.7~1/RELEASE_X86_64),
 # using MacOS system python 3.10.7
 # Tested to run on Mint Linux with Python 3.10.6
 
@@ -113,7 +113,7 @@ def enter_guess():
                 else:
                     if i == 0:
                         if mode == 2:
-                            print("First interation: abridged_valid_guesses not yet defined")
+                            print("First iteration: abridged_valid_guesses not yet defined")
                         print(guess_word + " is a valid guess.")
                         
                     else:
