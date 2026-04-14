@@ -49,7 +49,7 @@ if sys.version_info < MIN_PYTHON:
 
 def yesno(question):
     """Simple Yes/No Function."""
-    prompt = f'{question}? (y/n): '
+    prompt = f'{question}? (y/n):'
     ans = input(prompt).strip().lower()
     if ans not in ['y', 'n']:
         print(f'{ans} is invalid, please try again...')
@@ -412,11 +412,13 @@ def display_valid_guesses():
 
 def solve_curated_answer():
     print("Function to solve wordle using valid guess list.")
+    print("Under development.")
+    print()
     print("Current answer is " + ANSWER)
     print("Printing current valid guess list.")
     display_valid_guesses()
     print("The answer in likely in this list.")
-    print("Under development.")
+
     sys.exit(1)
 
 ## Start-up
@@ -425,7 +427,7 @@ def solve_curated_answer():
 
 # Choose whether hard mode is enabled
 hard = 0
-if yesno("Enable hard mode?"):
+if yesno("Enable hard mode"):
     hard = 1
 
 # Choose whether to run in quiet, verbose, or debug mode
@@ -1001,7 +1003,7 @@ for i in range(6):
             sys.exit("Program completed")
         else:
             print("Perhaps this is a 'curated' answer which could be found in the valid guess list?")
-            if yesno("Proceed to solve curated answer using valid guess list?"):
+            if yesno("Proceed to solve curated answer using valid guess list"):
                 solve_curated_answer()
                 sys.exit("Program completed")
             else:
@@ -1014,7 +1016,7 @@ for i in range(6):
         print("Answer is: ")
         print(" " + ANSWER)
         print()
-        if yesno("Proceed to solve curated answer using valid guess list?"):
+        if yesno("Proceed to solve curated answer using valid guess list"):
             solve_curated_answer()
             sys.exit("Program completed")
         else:
@@ -1095,7 +1097,7 @@ for i in range(6):
         print()
 
         if not yesno("Continue"):
-            sys.exit("Part 4 aborted at line 853")
+            sys.exit("Part 4 aborted at line 1099")
 
     # Check current_answers_list against unused_answers_list
     temp_list = []
