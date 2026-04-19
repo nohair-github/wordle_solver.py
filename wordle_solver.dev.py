@@ -1017,7 +1017,7 @@ for i in range(6):
     # If answer is found ( len(current_answers) = 1 ), write to ANSWER, and update past answer lists
     if current_answers == 1:
         ANSWER = ''.join(current_answers_list)
-        print("Wordle may be solved - assuming editors are using a new word not from the original answer list.")
+        print("Wordle may be solved - assuming editors are using a word from the original answer list.")
         print("Answer is: ")
         print(" " + ANSWER)
         print()
@@ -1137,7 +1137,7 @@ for i in range(6):
     # If answer is found ( temp_answers = 1 ), write to ANSWER, and update past answer lists
     if temp_answers == 1:
         ANSWER = ''.join(temp_list)
-        print("Wordle may be solved - assuming editors are using a word from the answer list.")
+        print("Wordle may be solved - assuming editors are using a word from the answer list not previouly used.")
         print("Answer is: ")
         print(" " + ANSWER)
         print()
