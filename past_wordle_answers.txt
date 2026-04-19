@@ -5,6 +5,7 @@ abbey
 above
 abyss
 acute
+adapt
 admit
 adobe
 adopt
