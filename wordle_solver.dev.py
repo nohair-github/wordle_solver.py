@@ -418,8 +418,33 @@ def solve_curated_answer():
     print("Printing current valid guess list.")
     display_valid_guesses()
     print("The answer in likely in this list.")
+    print()
+    while True:
+        if yesno("Enter further guesses from the abridged valid guess list"):
+            print("Enter the next guess")
 
-    sys.exit(1)
+            guess_word = enter_guess()
+            wrong = guess_word
+
+            if mode == 2:
+                print("Returned to main program")
+
+                print("guess_word is " + guess_word)
+                print("wrong is " + wrong)
+                print("guess[" + str(i) + "] is " + guess[i])
+
+            if yesno("Did " + guess_word + " solve wordle"):
+                update_past_answer_list()
+                sys.exit(0)
+            else:
+                #Remove guess from curated answer list
+                curated_answer_list = [ word for word in abridged_valid_guesses if not guess_word ]
+
+        else:
+            print("Exiting program.")
+            sys.exit(1)
+
+
 
 ## Start-up
         
@@ -1013,8 +1038,6 @@ for i in range(6):
     if current_answers == 0:
         ANSWER = ''.join(current_answers_list)
         print("Wordle answer appears to be a new word not from the original answer list.")
-        print("Answer is: ")
-        print(" " + ANSWER)
         print()
         if yesno("Proceed to solve curated answer using valid guess list"):
             solve_curated_answer()
