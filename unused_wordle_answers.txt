@@ -105,8 +105,6 @@ befit
 began
 begat
 beget
-begun
-belle
 beret
 berry
 betel
@@ -1543,7 +1541,6 @@ warty
 water
 waver
 waxen
-weave
 weedy
 weigh
 weird

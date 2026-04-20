@@ -67,9 +67,11 @@ beady
 beard
 beefy
 begin
+begun
 being
 belch
 belie
+belle
 belly
 below
 bench
@@ -689,6 +691,7 @@ waltz
 waste
 watch
 weary
+weave
 wedge
 whack
 whelp
