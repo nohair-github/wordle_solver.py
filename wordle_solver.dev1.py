@@ -29,7 +29,6 @@
 import sys
 import os
 import os.path
-import wordle_functions
 
 print()
 print("Welcome to wordle_solver, your assistant at playing Wordle.")
@@ -427,8 +426,6 @@ def solve_curated_answer():
             wrong = guess_word
 
             if mode == 2:
-                print("Returned to main program")
-
                 print("guess_word is " + guess_word)
                 print("wrong is " + wrong)
                 print("guess[" + str(i) + "] is " + guess[i])
@@ -439,7 +436,12 @@ def solve_curated_answer():
             else:
                 #Remove guess from curated answer list
                 curated_answer_list = [ word for word in abridged_valid_guesses if not guess_word ]
-
+                # Now, get exact matches, partial matches, unmatched letters
+                # Next, analyze correct matches
+                # Then, analyze partial matches
+                # Finally, remove words with unmatched letters from valid guess list
+                # Display remaining possible answers
+                # Check if answer was found.
         else:
             print("Exiting program.")
             sys.exit(1)

@@ -144,6 +144,7 @@ clock
 cloth
 clown
 cluck
+clump
 coast
 colon
 comet
