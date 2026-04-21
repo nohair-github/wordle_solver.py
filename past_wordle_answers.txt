@@ -545,6 +545,7 @@ skill
 skirt
 slate
 sleek
+slick
 slime
 slosh
 sloth
