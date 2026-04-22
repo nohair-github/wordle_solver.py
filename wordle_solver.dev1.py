@@ -32,7 +32,7 @@ import os.path
 
 print()
 print("Welcome to wordle_solver, your assistant at playing Wordle.")
-print("(wordle_solver.dev.py)")
+print("(wordle_solver.dev1.py)")
 print()
 
 # Check if proper python version is running script
@@ -120,9 +120,8 @@ def enter_guess():
                         
                     else:
                         if not guess_word in abridged_valid_guesses:
-                            print(guess_word + " is not a valid guess (hard mode).")
-                
-                break
+                            print(guess_word + " is not a valid guess (hard mode)")
+                        break
         
     # Add entry to to guess - list of guesses
     guess.append(guess_word)
@@ -130,6 +129,101 @@ def enter_guess():
         print("Guess #", i+1, "is ", guess[i])
 
     return(guess_word)
+
+# Function to enter and sanitize letter matches
+
+def enter_matches():
+
+    # Enter matches from guess: letter that match in correct position, partial matches
+    # and unmatched letters
+
+    global correct, partial, wrong
+    
+    # A. Enter and validate correct letters which match exactly (green square):
+
+    while True:
+        
+        print("Enter letters which exactly match (green square).")
+        print("Enter letters in lowercase in any order.")
+        print("Enter nothing (hit return key) if no letters exactly match.")
+        correct = input("Enter letter(s) > ")
+
+        if mode == 2:
+            print("correct is now " + correct)
+
+        # Trap null entry
+        if len(correct) == 0:
+            if not yesno("No letters correctly matched (green square). Correct"):
+                if mode == 2:
+                    print("'n' was entered.")
+                print()
+            else:
+                if mode == 2:
+                    print("'y' was entered")
+                # Skip to Step 2
+                print("No correctly matching letters. Moving to step 2.")
+                break
+
+        # Check if all entered letters actually are in guess_word
+        elif len(correct) >=1:
+            # Remove duplicate letters from correct
+            correct = "".join(set(correct))
+
+            # Iterate through letters in correct to confirm they are in guess_word
+            invalid = 0
+            for letter in correct:
+                if not letter in guess_word:
+                    print(letter + " does not appear in guess.")
+                    invalid +=1
+                else:
+                    if mode >= 1:
+                        print(letter + " appears in guess.")
+
+            if invalid == 0:
+                if mode >= 1:
+                    print("All letters are found in guess.")
+                break
+
+    # B. Enter and validate letters partially matching, that isin wrong position (yellow square)
+
+    while True:
+        print("Enter letters which match in wrong position (yellow square).")
+        print("Enter letters in lowercase in any order.")
+        print("Enter nothing (hit return key) if no letters match.")
+        partial = input("Enter letter(s) > ")
+
+        # Trap null entry
+        if len(partial) == 0:
+            if not yesno("No letters matched in wrong position (yellow square). Correct"):
+                print("'n' was entered.")
+                # Entry error. Go back to entry
+            else:
+                print("'y' was entered")
+                # Skip to Step 3
+                print("No correctly matching letters. Moving to step 3.")
+                break
+        
+        # Check if all entered letters actually are in guess_word
+        elif len(partial) >=1:
+            # Remove duplicate letters from partial
+            partial = "".join(set(partial))
+
+            # Iterate through letters to confirm they are in guess_word
+            invalid = 0
+            for letter in partial:
+                if not letter in guess_word:
+                    print(letter + " does not appear in guess.")
+                    invalid +=1
+                else:
+                    if mode >= 1:
+                        print(letter + " appears in guess.")
+
+
+            if invalid == 0:
+                if mode >= 1:
+                    print("All letters are found in guess.")
+                print()
+                break
 
 
 # Function to check if word is in list
@@ -141,6 +235,218 @@ def check(word, list):
     else:
         # print("The word is not in the list!")
         return False
+
+
+# Function to remove words not containing correct letter matches:
+
+def filter_correct_matches(word_list):
+    
+    #Step 1: Select words that contain matched letters in correct position.
+
+    global ANSWER, wrong, correct
+    
+    if mode >= 1:
+        print("Step 1 function: Selecting words that contain letters matched in correct position.")
+
+    # Count number of times each letter occurs in guess_word and deal with count
+
+    if len(correct) >= 1:
+
+        for letter in correct:
+            count = guess_word.count(letter)
+
+            if count == 0:
+                print("Error. Letter " + letter + " does not appear in guess")
+                sys.exit("Error, line 491")
+                
+            elif count == 1:
+                if mode >= 1:
+                    print("Letter " + letter + " appears once in guess.")
+                j = guess_word.index(letter)
+                if mode == 2:
+                    print("index is " + str(j))
+                if mode >= 1:
+                    print("Position of " + letter + " is " + str(j))
+
+                ANSWER = ANSWER[:j] + letter + ANSWER[j+1:]
+                wrong = wrong[:j] + "." + wrong[j+1:]
+
+                if mode == 2:
+                    print("ANSWER is now " + ANSWER)
+                    print("wrong is now " + wrong)
+
+                word_list = [ word for word in word_list if letter == word[j] ]
+                              
+                if mode == 2:
+                    print("After solving for " + letter + " in position " + str(j) + ", " + str(len(word_list)) + " words remain.")
+                    print()
+
+            elif count > 1:
+                if mode >= 1:
+                    print("Letter " + letter + " appears " + str(count) + " times in guess.")
+                # For each occurrence of letter, determine if it is an exact match or not
+                for j, v in enumerate(guess_word):
+                    if mode == 2:
+                        print(j, '  ', v)
+                    if letter == v:
+                        print(letter + " occurs in position " + str(j) + ".")
+                        if yesno("Is this an exact match (green square)"):
+                            ANSWER = ANSWER[:j] + letter + ANSWER[j+1:]
+                            wrong = wrong[:j] + "." + wrong[j+1:]
+
+                            if mode == 2:
+                                print("ANSWER is now " + ANSWER)
+                                print("wrong is now " + wrong)
+
+                            word_list = [ word for word in word_list if letter == word[j] ]
+                            
+                            if mode == 2:
+                                print("After solving for " + letter + " in position " + str(j) + ", ", str(len(word_list)), " words remain.")
+                                print()
+
+        # Tabulate results
+        word_list_len = len(word_list)
+        print("After matching for answers which contain " + correct + ",")
+        print(str(word_list_len) + " words are left from initial " + str(total_answers) )        
+
+    else:
+        # No letters entered
+        if mode >= 1:
+            print("No letters exactly matching")
+
+            if mode == 2:
+                print("With null entry,type of current_answers_list is now ", type(current_answers_list))
+
+            print()
+
+    if mode >= 1:
+        print("Done with step 1 function")
+        
+    if mode == 2:
+        print("ANSWER is now " + ANSWER)
+        print("wrong is now " + wrong)
+        
+    print()
+
+    return (word_list)
+
+
+# Function to remove words with unmatched letters:
+
+def unmatched_letters_filter(word_list):
+
+    global wrong
+
+    print("value of 'wrong inside unmatched_letters_filter is '" + wrong + "''.")
+
+    if mode >= 2:
+        print("Entering unmatched_letters_filter() function: eliminating words containing unmatched letters")
+    print()
+
+    wrong = wrong.replace('.', '')
+
+    if mode == 2:
+        print("wrong is " + wrong)
+        print()
+
+    # Iterate by letters in wrong
+    for letter in wrong:
+        
+        # Check if letter already appears in ANSWER
+        count = ANSWER.count(letter)
+        if count == 0:
+            # If not, eliminate words containing letter
+            temp_list = []
+            temp_list = [ word for word in word_list if not letter in word ]
+
+            if mode == 2:
+                print("After solving for words which do not contain " + letter + ", " + str(len(temp_list)) + " words remain.")
+                print()
+
+            word_list = temp_list
+       
+        else:
+            # If the letter already appears in ANSWER, iterate through ANSWER and eliminate words with letter in same position as a "."
+            for j, v in enumerate(ANSWER):
+                if mode == 2:
+                    print(j, ' ', v)
+                if v == '.':
+                    if mode == 2:
+                        print(ANSWER[j] + " is .")
+                # If so, find words not containing letter in this position
+                    temp_list = []
+                    temp_list = [ word for word in word_list if not letter in word[j] ]
+
+                    if mode == 2:
+                        print("After solving for " + letter + " in position " + str(j) + ", " + str(len(temp_list)) + " words remain.")
+                 
+                    word_list = temp_list
+
+        # Tabulate and display results by letter
+        word_list_len = len(word_list)
+        if mode >= 1:
+            print("After selecting words which do not contain " + letter + "," + str(word_list_len) + " words are left.")
+            print()
+
+    return(word_list)
+
+
+# Function to display list of remaining valid guesses
+
+def display_valid_guesses():
+
+    print("Abridged valid guess list contains " + str(len(abridged_valid_guesses)) + " words")
+
+    if yesno("Display abridged valid guess list"):
+        for word in abridged_valid_guesses:
+            print(word)
+        print()
+
+    # Show letter frequency in abridged valid guess list
+
+    if yesno("Print letter frequency in possible guesses from abridged valid guess list"):
+
+        # Convert abdidged_guess_list to string
+        abridged_guess_string = ' '.join(abridged_valid_guesses)
+        
+        # Create dict containing letter frequency    
+        letter_frequency = {}
+        from string import ascii_lowercase as alc
+        for k in alc:
+            a = abridged_guess_string.count(k)
+            if a >= 1:
+                letter_frequency[k] = a
+     
+        from collections import Counter
+        c = Counter(letter_frequency)
+        abridged_guesses_sorted = c.most_common()
+
+        print("List of letters by frequency")
+        for k, v in abridged_guesses_sorted:
+            print(k, ' ', v)
+
+
+# Function to use abridged_valid_guesses as answer list:
+
+def solve_curated_answer():
+
+    global ANSWER, wrong, partial, correct
+    print("Function to solve wordle using valid guess list.")
+    print("Under development.")
+    print()
+    print("Current answer is " + ANSWER)
+    display_valid_guesses()
+    print("The answer in likely in this list.")
+    print("Set current_answer_list to abridged_valid_guesses list.")
+    current_answers_list = abridged_valid_guesses
+
+    if yesno("Did " + guess_word + " solve wordle"):
+        update_past_answer_list()
+        sys.exit(0)
+    else:
+        #Remove guess from curated answer list
+        curated_answer_list = [ word for word in abridged_valid_guesses if not guess_word ]
+
 
 # Update past_wordle_answers.txt file
 
@@ -268,6 +574,7 @@ def update_past_answer_list():
     else:
         print("Be sure to update past_wordle_answers.txt.")
 
+
 # Update unused_wordle_answers.txt file       
 
 def update_unused_answer_list():
@@ -375,133 +682,6 @@ def update_unused_answer_list():
     else:
         print("Be sure to update unused_wordle_answers.txt.")
 
-# Function to display remaining valid guesses
-
-def display_valid_guesses():
-
-    print("Abridged valid guess list contains " + str(len(abridged_valid_guesses)) + " words")
-
-    if yesno("Display abridged valid guess list"):
-        for word in abridged_valid_guesses:
-            print(word)
-        print()
-
-    # Show letter frequency in abridged valid guess list
-
-    if yesno("Print letter frequency in possible guesses from abridged valid guess list"):
-
-        # Convert abdidged_guess_list to string
-        abridged_guess_string = ' '.join(abridged_valid_guesses)
-        
-        # Create dict containing letter frequency    
-        letter_frequency = {}
-        from string import ascii_lowercase as alc
-        for k in alc:
-            a = abridged_guess_string.count(k)
-            if a >= 1:
-                letter_frequency[k] = a
-     
-        from collections import Counter
-        c = Counter(letter_frequency)
-        abridged_guesses_sorted = c.most_common()
-
-        print("List of letters by frequency")
-        for k, v in abridged_guesses_sorted:
-            print(k, ' ', v)
-
-def solve_curated_answer():
-    print("Function to solve wordle using valid guess list.")
-    print("Under development.")
-    print()
-    print("Current answer is " + ANSWER)
-    print("Printing current valid guess list.")
-    display_valid_guesses()
-    print("The answer in likely in this list.")
-    print()
-    while True:
-        if yesno("Enter further guesses from the abridged valid guess list"):
-            print("Enter the next guess")
-
-            guess_word = enter_guess()
-            wrong = guess_word
-
-            if mode == 2:
-                print("guess_word is " + guess_word)
-                print("wrong is " + wrong)
-                print("guess[" + str(i) + "] is " + guess[i])
-
-            if yesno("Did " + guess_word + " solve wordle"):
-                update_past_answer_list()
-                sys.exit(0)
-            else:
-                #Remove guess from curated answer list
-                curated_answer_list = [ word for word in abridged_valid_guesses if not guess_word ]
-                # Now, get exact matches, partial matches, unmatched letters
-                # Next, analyze correct matches
-                # Then, analyze partial matches
-                # Finally, remove words with unmatched letters from valid guess list
-                # Display remaining possible answers
-                # Check if answer was found.
-        else:
-            print("Exiting program.")
-            sys.exit(1)
-
-def unmatched_letters_filter(word_list):
-
-    global wrong
-
-    print("value of 'wrong inside unmatched_letters_filter is '" + wrong + "''.")
-
-    if mode >= 2:
-        print("Entering unmatched_letters_filter() function: eliminating words containing unmatched letters")
-    print()
-
-    wrong = wrong.replace('.', '')
-
-    if mode == 2:
-        print("wrong is " + wrong)
-        print()
-
-    # Iterate by letters in wrong
-    for letter in wrong:
-        
-        # Check if letter already appears in ANSWER
-        count = ANSWER.count(letter)
-        if count == 0:
-            # If not, eliminate words containing letter
-            temp_list = []
-            temp_list = [ word for word in word_list if not letter in word ]
-
-            if mode == 2:
-                print("After solving for words which do not contain " + letter + ", " + str(len(temp_list)) + " words remain.")
-                print()
-
-            word_list = temp_list
-       
-        else:
-            # If the letter already appears in ANSWER, iterate through ANSWER and eliminate words with letter in same position as a "."
-            for j, v in enumerate(ANSWER):
-                if mode == 2:
-                    print(j, ' ', v)
-                if v == '.':
-                    if mode == 2:
-                        print(ANSWER[j] + " is .")
-                # If so, find words not containing letter in this position
-                    temp_list = []
-                    temp_list = [ word for word in word_list if not letter in word[j] ]
-
-                    if mode == 2:
-                        print("After solving for " + letter + " in position " + str(j) + ", " + str(len(temp_list)) + " words remain.")
-                 
-                    word_list = temp_list
-
-        # Tabulate and display results by letter
-        word_list_len = len(word_list)
-        if mode >= 1:
-            print("After selecting words which do not contain " + letter + "," + str(word_list_len) + " words are left.")
-            print()
-
-    return(word_list)
 
 ## Start-up
         
@@ -576,15 +756,16 @@ for word in valid_guesses:
     if len(word) != 5:
         print("Error - item(s) in valid_guesses do not contain 5 letters.")
         print("Possible error/corruption in valid_guess_list.txt file.")
-        sys.exit("Error, line 347")
+        sys.exit("Error, line 675")
 
 # Create abridged_valid_guesses list
 abridged_valid_guesses = valid_guesses
 
-# Count number of words in initial_answer_list
+# Count number of words in initial lists
 
 total_answers = len(current_answers_list)
-print("Starting number of possible answers is " + str(total_answers))
+print("Starting number of possible answers is " + str(total_answers) + ".")
+print("Starting number of valid guesses is " + str(len(valid_guesses)) + ".")
 
 # Create ANSWER with 5 dots
 ANSWER = "....."
@@ -600,7 +781,7 @@ guess = []
 
 for i in range(6):
     if mode == 2:
-        print(i)
+        print("i = " + str(i))
         print()
         print("Guess", i+1)
         print()
@@ -613,61 +794,22 @@ for i in range(6):
     wrong = guess_word
 
     if mode == 2:
-        print("Returned to main program, line 517")
-
         print("guess_word is " + guess_word)
         print("wrong is " + wrong)
         print("guess[" + str(i) + "] is " + guess[i])
 
+    # Match entry section
+
+    enter_matches()
+
     # Analysis section
 
     #
-    # Step 1: Select words that contain matched letters in correct position.
+    # Step 1: Select words that contain matched letters in correct position:
     #
     
     if mode >= 1:
         print("Step 1: Selecting words that contain letters matched in correct position.")
-
-    # Enter and validate letters which match exactly (green square)
-
-    while True:
-        print("Enter letters which exactly match (green square).")
-        print("Enter letters in lowercase in any order.")
-        print("Enter nothing (hit return key) if no letters exactly match.")
-        correct = input("Enter letter(s) > ")
-
-        # Trap null entry
-        if len(correct) == 0:
-            if not yesno("No letters correctly matched (green square). Correct"):
-                if mode == 2:
-                    print("'n' was entered.")
-                print()
-            else:
-                if mode == 2:
-                    print("'y' was entered")
-                # Skip to Step 2
-                print("No correctly matching letters. Moving to step 2.")
-                break
-
-        # Check if all entered letters actually are in guess_word
-        elif len(correct) >=1:
-            # Remove duplicate letters from correct
-            correct = "".join(set(correct))
-
-            # Iterate through letters in correct to confirm they are in guess_word
-            invalid = 0
-            for letter in correct:
-                if not letter in guess_word:
-                    print(letter + " does not appear in guess.")
-                    invalid +=1
-                else:
-                    if mode >= 1:
-                        print(letter + " appears in guess.")
-
-            if invalid == 0:
-                if mode >= 1:
-                    print("All letters are found in guess.")
-                break
 
     # Count number of times each letter occurs in guess_word and deal with count
 
@@ -790,46 +932,6 @@ for i in range(6):
     
     if mode >= 1:
         print("Step 2: Select all words containing letters matched but in wrong position.")
-
-    # Enter and validate letters matching in wrong position (yellow square)
-    while True:
-        print("Enter letters which match in wrong position (yellow square).")
-        print("Enter letters in lowercase in any order.")
-        print("Enter nothing (hit return key) if no letters match.")
-        partial = input("Enter letter(s) > ")
-
-        # Trap null entry
-        if len(partial) == 0:
-            if not yesno("No letters matched in wrong position (yellow square). Correct"):
-                print("'n' was entered.")
-                # Entry error. Go back to entry
-            else:
-                print("'y' was entered")
-                # Skip to Step 3
-                print("No correctly matching letters. Moving to step 3.")
-                break
-        
-        # Check if all entered letters actually are in guess_word
-        elif len(partial) >=1:
-            # Remove duplicate letters from partial
-            partial = "".join(set(partial))
-
-            # Iterate through letters to confirm they are in guess_word
-            invalid = 0
-            for letter in partial:
-                if not letter in guess_word:
-                    print(letter + " does not appear in guess.")
-                    invalid +=1
-                else:
-                    if mode >= 1:
-                        print(letter + " appears in guess.")
-
-
-            if invalid == 0:
-                if mode >= 1:
-                    print("All letters are found in guess.")
-                print()
-                break
 
     # Iterate through letters partially matched to eliminate possible answers
 
@@ -1082,7 +1184,6 @@ for i in range(6):
         print("List of letters by frequency")
         for k, v in current_answers_sorted:
             print(k, ' ', v)
-
 
     #
     # Step 4: Check against unused answers, show remaining possible answers and letter frequencies.

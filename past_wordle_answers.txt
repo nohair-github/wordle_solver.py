@@ -136,6 +136,7 @@ cider
 cigar
 cinch
 civic
+clasp
 class
 clean
 click
@@ -310,6 +311,7 @@ guppy
 hairy
 happy
 hardy
+hasty
 hatch
 havoc
 heady
@@ -375,6 +377,7 @@ lilac
 limbo
 linen
 liver
+lobby
 locus
 lofty
 loopy
@@ -493,6 +496,7 @@ rebus
 rebut
 recap
 regal
+rehab
 renew
 repay
 retch
@@ -535,6 +539,7 @@ shawl
 shine
 shire
 shirk
+shoal
 shown
 showy
 shrub
@@ -554,11 +559,13 @@ slung
 smart
 smash
 smear
+smell
 smelt
 smite
 snafu
 snarl
 sneak
+snore
 snout
 soggy
 solar
@@ -618,6 +625,7 @@ tapir
 tasty
 taunt
 tease
+teddy
 tepid
 theft
 their

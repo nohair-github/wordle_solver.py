@@ -262,7 +262,6 @@ clamp
 clang
 clank
 clash
-clasp
 clear
 cleat
 cleft
@@ -644,7 +643,6 @@ harpy
 harry
 harsh
 haste
-hasty
 hater
 haunt
 haute
@@ -767,7 +765,6 @@ livid
 llama
 loamy
 loath
-lobby
 local
 lodge
 logic
@@ -1068,7 +1065,6 @@ recut
 reedy
 refer
 refit
-rehab
 reign
 relax
 relay
@@ -1191,7 +1187,6 @@ shied
 shift
 shiny
 shirt
-shoal
 shock
 shone
 shook
@@ -1245,7 +1240,6 @@ slush
 slyly
 smack
 small
-smell
 smile
 smirk
 smith
@@ -1263,7 +1257,6 @@ snide
 sniff
 snipe
 snoop
-snore
 snort
 snowy
 snuck
@@ -1401,7 +1394,6 @@ tatty
 tawny
 teach
 teary
-teddy
 teeth
 tempo
 tenet
