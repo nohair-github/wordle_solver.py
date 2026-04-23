@@ -199,8 +199,7 @@ def enter_matches():
                 # Entry error. Go back to entry
             else:
                 print("'y' was entered")
-                # Skip to Step 3
-                print("No correctly matching letters. Moving to step 3.")
+                print("No correctly matching letters. Moving to next step.")
                 break
         
         # Check if all entered letters actually are in guess_word
@@ -436,17 +435,11 @@ def solve_curated_answer():
     print()
     print("Current answer is " + ANSWER)
     display_valid_guesses()
+    
     print("The answer in likely in this list.")
     print("Set current_answer_list to abridged_valid_guesses list.")
-    current_answers_list = abridged_valid_guesses
-
-    if yesno("Did " + guess_word + " solve wordle"):
-        update_past_answer_list()
-        sys.exit(0)
-    else:
-        #Remove guess from curated answer list
-        curated_answer_list = [ word for word in abridged_valid_guesses if not guess_word ]
-
+    current_answers_list = [ word for word in abridged_valid_guesses if not guess_word ]
+     
 
 # Update past_wordle_answers.txt file
 
@@ -1138,11 +1131,8 @@ for i in range(6):
             sys.exit("Program completed")
         else:
             print("Perhaps this is a 'curated' answer which could be found in the valid guess list?")
-            if yesno("Proceed to solve curated answer using valid guess list"):
-                solve_curated_answer()
-                sys.exit("Program completed")
-            else:
-                sys.exit("Program completed")
+            print("To further solve this, enter " + ANSWER + "as a guess and run through the program.")
+            solve_curated_answer()
 
     # If no matching word is found, search valid_guest_list for matches
     if current_answers == 0:
@@ -1151,7 +1141,6 @@ for i in range(6):
         print()
         if yesno("Proceed to solve curated answer using valid guess list"):
             solve_curated_answer()
-            sys.exit("Program completed")
         else:
             sys.exit("Program completed")    
 
@@ -1256,12 +1245,20 @@ for i in range(6):
             update_past_answer_list()
             sys.exit("Program completed")
         else:
-            print("Perhaps this is a 'curated' answer which could be found in the valid guess list?")
-            if yesno("Print the current valid guess list for other possible solutions"):
-                for word in abridged_valid_guesses:
-                    print(word)
-                sys.exit("Program completed")
+            print("Perhaps this is a 'curated' answer not from the original answer list butpossibly from the valid guess list?")
+            print("To further solve this, enter " + ANSWER + "as a guess and run through the program.")
+            solve_curated_answer()
 
+    # If no matching word is found, search valid_guest_list for matches
+    if temp_answers == 0:
+        ANSWER = ''.join(current_answers_list)
+        print("Wordle answer appears to be a new word not from the original answer list.")
+        print()
+        if yesno("Proceed to solve curated answer using valid guess list"):
+            solve_curated_answer()
+        else:
+            sys.exit("Program completed")   
+            
     if yesno("Print list of possible answers from unused_answers_list"):
         for word in temp_list:
             print(word)
