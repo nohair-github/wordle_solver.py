@@ -263,7 +263,7 @@ def update_past_answer_list():
                 print("Updated past_answers_list file written")
                 print()
 
-        update_unused_answers_list(unused_answers_list)
+        update_unused_answers_list()
         
     else:
         print("Be sure to update past_wordle_answers.txt.")
@@ -271,8 +271,6 @@ def update_past_answer_list():
 # Update unused_wordle_answers.txt file       
 
 def update_unused_answers_list():
-
-    def update_unused_answer_list():
 
     if yesno("Update unused Wordle answers"):
         # Open as file unused_wordle_answers.txt
@@ -376,7 +374,7 @@ def update_unused_answers_list():
 
     else:
         print("Be sure to update unused_wordle_answers.txt.")
-        
+
 
 # Function to display remaining valid guesses
 
