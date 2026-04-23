@@ -251,6 +251,7 @@ flora
 floss
 flout
 fluff
+fluke
 flume
 focal
 focus
@@ -322,6 +323,7 @@ helix
 heron
 hinge
 hoard
+hoist
 homer
 horde
 horse
@@ -410,6 +412,7 @@ midst
 mimic
 mince
 model
+mogul
 moist
 molar
 money
@@ -549,6 +552,7 @@ siege
 sissy
 skill
 skirt
+skull
 slate
 sleek
 slick
@@ -593,6 +597,7 @@ staid
 stair
 stale
 stand
+stank
 start
 stead
 steed
@@ -666,6 +671,7 @@ truss
 tryst
 twang
 tweed
+tweet
 twice
 twine
 ulcer

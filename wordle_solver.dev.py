@@ -263,14 +263,16 @@ def update_past_answer_list():
                 print("Updated past_answers_list file written")
                 print()
 
-        update_unused_answer_list()
+        update_unused_answers_list(unused_answers_list)
         
     else:
         print("Be sure to update past_wordle_answers.txt.")
 
 # Update unused_wordle_answers.txt file       
 
-def update_unused_answer_list():
+def update_unused_answers_list():
+
+    def update_unused_answer_list():
 
     if yesno("Update unused Wordle answers"):
         # Open as file unused_wordle_answers.txt
@@ -374,6 +376,7 @@ def update_unused_answer_list():
 
     else:
         print("Be sure to update unused_wordle_answers.txt.")
+        
 
 # Function to display remaining valid guesses
 
@@ -626,7 +629,7 @@ for i in range(6):
             if invalid == 0:
                 if mode >= 1:
                     print("All letters are found in guess.")
-                break
+                    break
 
     # Count number of times each letter occurs in guess_word and deal with count
 
@@ -710,10 +713,10 @@ for i in range(6):
                                 print()
 
                             # Then, repeat fror unused_answers_list
-                            unused_answers_list = [ word for word in unused_answers_list if letter == worg[j] ]
+                            unused_answers_list = [ word for word in unused_answers_list if letter == word[j] ]
 
                             if mode == 2:
-                                print("After solving for " + letter + " in position " + str(j) + ", " + str(len(unused_answers_list)) + " valid guesses remain.")
+                                print("After solving for " + letter + " in position " + str(j) + ", " + str(len(unused_answers_list)) + " unused answers remain.")
                                 print()
 
         # Tabulate results for current_answers_list
@@ -1115,6 +1118,7 @@ for i in range(6):
     #        temp_list.append(word)
 
     #temp_list = [ word for word in current_answers_list if word in unused_answers_list ]
+
     unused_answers_len = len(unused_answers_list)
     print("Unused answer list contains " + str(unused_answers_len) + " words.")
     print()
@@ -1137,28 +1141,35 @@ for i in range(6):
                 print(word)
         print()
         print("Best to check and see if this solution actually solves the puzzle.\n")
+
+    # Show unused answer list
+
+    if unused_answers_len >= 2:
+        if yesno("Print unused_answers_list"):
+            for word in unused_answers_list:
+                print(word)
         
     # Tabulation of letter frequency of words in temp_list
-    if unused_answers_len > 2:
+    if unused_answers_len >= 2:
         if yesno("Print letter frequency in possible answers from unused_answers_list"):
 
             # Convert temp_list to string
-            abridged_answers_string = ' '.join(temp_list)
+            unused_answers_string = ' '.join(unused_answers_list)
             
             # Create dict containing letter frequency    
             letter_frequency = {}
             from string import ascii_lowercase as alc
             for k in alc:
-                a = abridged_answers_string.count(k)
+                a = unused_answers_string.count(k)
                 if a >= 1:
                     letter_frequency[k] = a
          
             from collections import Counter
             c = Counter(letter_frequency)
-            abridged_answers_sorted = c.most_common()
+            unused_answers_list_sorted = c.most_common()
 
             print("List of letters by frequency")
-            for k, v in abridged_answers_sorted:
+            for k, v in unused_answers_list_sorted:
                 print(k, ' ', v)
 
     print()
