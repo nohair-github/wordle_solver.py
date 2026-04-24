@@ -240,7 +240,6 @@ check
 cheer
 chess
 chick
-chide
 child
 chili
 chime

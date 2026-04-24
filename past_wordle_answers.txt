@@ -128,6 +128,7 @@ charm
 cheat
 cheek
 chest
+chide
 chief
 chill
 choke
