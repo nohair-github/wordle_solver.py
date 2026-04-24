@@ -227,7 +227,6 @@ cause
 cavil
 cease
 cedar
-cello
 chaff
 chain
 chair
@@ -1135,7 +1134,6 @@ scamp
 scant
 scarf
 scary
-scene
 scent
 scion
 scoff
@@ -1495,7 +1493,6 @@ vapid
 vapor
 vault
 vaunt
-vegan
 venom
 venue
 verge

@@ -119,6 +119,7 @@ carry
 catch
 cater
 caulk
+cello
 chafe
 champ
 chant
@@ -530,6 +531,7 @@ salsa
 saute
 scald
 scare
+scene
 scold
 scorn
 scour
@@ -699,6 +701,7 @@ usurp
 vague
 valet
 valid
+vegan
 vigor
 viral
 vital

@@ -567,8 +567,7 @@ for i in range(6):
     # Step 1: Select words that contain matched letters in correct position.
     #
     
-    if mode >= 1:
-        print("Step 1: Selecting words that contain letters matched in correct position.")
+    print("Step 1: Selecting words that contain letters matched in correct position.")
 
     # Enter and validate letters which match exactly (green square)
 
@@ -609,7 +608,7 @@ for i in range(6):
             if invalid == 0:
                 if mode >= 1:
                     print("All letters are found in guess.")
-                    break
+                break
 
     # Count number of times each letter occurs in guess_word and deal with count
 
