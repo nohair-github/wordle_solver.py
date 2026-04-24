@@ -277,6 +277,7 @@ gamma
 gaudy
 gauge
 gauze
+gavel
 gawky
 gecko
 ghoul
