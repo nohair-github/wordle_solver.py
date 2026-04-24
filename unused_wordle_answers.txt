@@ -408,7 +408,6 @@ dross
 drove
 drown
 druid
-drunk
 dryer
 dryly
 dully
@@ -1355,7 +1354,6 @@ sully
 sumac
 sunny
 super
-surge
 sushi
 swami
 swarm

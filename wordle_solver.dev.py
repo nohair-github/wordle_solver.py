@@ -20,11 +20,10 @@
 #   Corrected typos
 #   Moved entry section to function "enter_guess()"
 #   Debug testing of enter_guess()
-#   Added rump/placeholder entry to 'solve_curated_answer()' function
 #   Made quiet mode quieter:
 #       removed alert in Step 1 that letters are found in guess line 578 & 582
 #       removed alert in Step 2 that letters are found in guess line 737 & 744
-#
+#   Cleaned up logic once solution for repeated answers and curated answers in apparent
 
 import sys
 import os
@@ -410,23 +409,6 @@ def display_valid_guesses():
         for k, v in abridged_guesses_sorted:
             print(k, ' ', v)
 
-def solve_curated_answer():
-    print("Function to solve wordle using valid guess list.")
-    print("Under development.")
-    print()
-    print("Current answer is " + ANSWER)
-    print("Current guess_word is " + guess_word)
-    print("Printing current valid guess list.")
-    for word in abridged_valid_guesses:
-        print(word)
-    print("The answer in likely in this list.")
-    print()
-    print("Set current_answer_list to valid guess list")
-    current_answers_list = abridged_valid_guesses
-    print("Now print current_answers_list:")
-    for word in current_answers_list:
-        print(word)
-
 
 ## Start-up
         
@@ -554,7 +536,7 @@ guess = []
 
 for i in range(6):
     if mode == 2:
-        print(i)
+        print("index is " + str(i))
         print()
         print("Guess", i+1)
         print()
@@ -955,6 +937,7 @@ for i in range(6):
 
     # Display results if desired
     if mode >= 1:
+        print("After partial matches, " + str(len(current_answers_list)) + " words are left from initial " + str(total_answers) + ".")
         if yesno("Print current answer list"):
             for word in current_answers_list:
                 print(word)
@@ -1050,17 +1033,29 @@ for i in range(6):
         print("Done with Step 3.")
     print()
 
+    #
+    # End of step 3
+    #
+
     # If answer is found ( len(current_answers) = 1 ), write to ANSWER, and update past answer lists
     if len(current_answers_list) == 1:
-        print("Wordle may be solved - assuming editors are using a word from the original answer list.")
+        print("\nWordle may be solved - assuming editors are using a word from the original answer list.")
         print("Answer is: " + current_answers_list[0])
         print()
-        print("Best to check and see if this solution actually solves")
+        print("Best to check and see if this solution actually solves the puzzle")
+
+        if yesno("Enter the new guess"):
+            print("Here are the remaining valid guesses:")
+            for word in abridged_valid_guesses:
+                print(word)
+        else:
+            sys.exit("Program completed")    
+        continue
 
         
     # If no matching word is found, search valid_guest_list for matches
-    if len(current_answers_list) == 0:
-        print("Wordle answer appears to be a new word not from the original answer list.")
+    elif len(current_answers_list) == 0:
+        print("\nWordle answer appears to be a new word not from the original answer list.")
         print()
         if yesno("Proceed to solve curated answer using valid guess list"):
             current_answers_list = abridged_valid_guesses
@@ -1072,67 +1067,60 @@ for i in range(6):
         continue
 
     # Display results for guess
-    if yesno("Display current answer list after guess[" + str(i) + "]"):
-        for word in current_answers_list:
-            print(word)
-        print()
+    else:
+        if yesno("Display current answer list after guess[" + str(i) + "]"):
+            for word in current_answers_list:
+                print(word)
+            print()
 
-    # Show letter frequency in current answer list
+        # Show letter frequency in current answer list
 
-    if yesno("Print letter frequency in possible answers from current answers list"):
+        if yesno("Print letter frequency in possible answers from current answers list"):
 
-        # Convert current_answers_list to string
-        current_answers_string = ' '.join(current_answers_list)
-        
-        # Create dict containing letter frequency    
-        letter_frequency = {}
-        from string import ascii_lowercase as alc
-        for k in alc:
-            a = current_answers_string.count(k)
-            if a >= 1:
-                letter_frequency[k] = a
-     
-        from collections import Counter
-        c = Counter(letter_frequency)
-        current_answers_sorted = c.most_common()
+            # Convert current_answers_list to string
+            current_answers_string = ' '.join(current_answers_list)
+            
+            # Create dict containing letter frequency    
+            letter_frequency = {}
+            from string import ascii_lowercase as alc
+            for k in alc:
+                a = current_answers_string.count(k)
+                if a >= 1:
+                    letter_frequency[k] = a
+         
+            from collections import Counter
+            c = Counter(letter_frequency)
+            current_answers_sorted = c.most_common()
 
-        print("List of letters by frequency")
-        for k, v in current_answers_sorted:
-            print(k, ' ', v)
+            print("List of letters by frequency")
+            for k, v in current_answers_sorted:
+                print(k, ' ', v)
 
 
     #
     # Step 4: Check against unused answers, show remaining possible answers and letter frequencies.
     #
     
-    if mode >= 1:
-        print("Step 4: Check against unused answers, show remaining possible answers and letter frequencies.")
-        print()
-
-    # Check current_answers_list against unused_answers_list
-    #temp_list = []
-    #for word in current_answers_list:
-    #    if word in unused_answers_list:
-    #        temp_list.append(word)
-
-    #temp_list = [ word for word in current_answers_list if word in unused_answers_list ]
-
-    unused_answers_len = len(unused_answers_list)
-    print("Unused answer list contains " + str(unused_answers_len) + " words.")
+    
+    print("\nStep 4: Check against unused answers, show remaining unused answers and letter frequencies.")
     print()
 
-    # If answer is found ( temp_answer = 1 ), write to ANSWER, and update past answer lists
+    unused_answers_len = len(unused_answers_list)
+
+    # If answer is found ( unused_answers_len = 1 )
     if unused_answers_len == 1:
         print("Wordle may be solved - assuming editors are using a word from the answer list not previouly used.")
         print("Answer is: " + unused_answers_list[0])
         print()
-        print("At this time, " + str(len(current_answers_list)) + " possble answers remain from the total answer list.")
-        print("There may be valid answers besides " + current_answers_list[0] + " if the editors are reusing previously used answers:")
-        for word in current_answers_list:
-            print(word)
+        print("At this time, " + str(len(current_answers_list)) + " possble answers remain from the full answer list.")
+        print("These may be valid answers if the editors are reusing previously used answers, which they occasionally do.")
         print()
-        print("In addition, if so-called 'curated' answers not originally in the answer list are being used,")
-        print("there are " + str(len(abridged_valid_guesses)) + " valid guesses remaining which could also be the answer.")
+        if yesno("Show remaining answers from full answerslist"):
+            for word in current_answers_list:
+                print(word)
+        print()
+        print("In addition, if so-called 'curated' answers not originally in the answer list are can be used.")
+        print("There are " + str(len(abridged_valid_guesses)) + " valid guesses remaining which could also be the answer.")
         print()
         if yesno("Print list of possible answers from abridged_valid_guesses list"):
             for word in abridged_valid_guesses:
@@ -1140,15 +1128,17 @@ for i in range(6):
         print()
         print("Best to check and see if this solution actually solves the puzzle.\n")
 
-    # Show unused answer list
+    # Otherwise, show unused answer list
 
-    if unused_answers_len >= 2:
+    elif unused_answers_len >= 2:
+        print("Unused answer list contains " + str(unused_answers_len) + " words.")
+        print()
+
         if yesno("Print unused_answers_list"):
             for word in unused_answers_list:
                 print(word)
         
-    # Tabulation of letter frequency of words in temp_list
-    if unused_answers_len >= 2:
+        # Tabulation of letter frequency of words in temp_list
         if yesno("Print letter frequency in possible answers from unused_answers_list"):
 
             # Convert temp_list to string
@@ -1191,6 +1181,9 @@ for i in range(6):
     print("Guesses so far:")
     print(*guess, sep='\n')
     print()
+
+    if yesno("Would you like to review the remaining " + str(len(abridged_valid_guesses)) + " valid guesses at this time"):
+        display_valid_guesses()
 
 # End of main loop
 
