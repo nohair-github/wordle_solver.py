@@ -33,7 +33,6 @@ alibi
 align
 alive
 allay
-allot
 alloy
 along
 aloof
@@ -505,7 +504,6 @@ final
 finch
 flack
 flake
-flaky
 flame
 flank
 flare
@@ -708,7 +706,6 @@ joker
 jolly
 juice
 juicy
-jumbo
 jumpy
 junta
 junto

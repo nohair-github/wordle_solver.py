@@ -20,6 +20,7 @@ album
 alien
 alike
 alley
+allot
 allow
 aloft
 alone
@@ -243,6 +244,7 @@ fizzy
 fjord
 flail
 flair
+flaky
 flesh
 flick
 fling
@@ -357,6 +359,7 @@ ivory
 jaunt
 joust
 judge
+jumbo
 karma
 kayak
 kebab
