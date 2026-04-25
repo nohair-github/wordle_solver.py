@@ -318,7 +318,6 @@ croup
 crowd
 crown
 crude
-cruel
 crumb
 crump
 crush
@@ -1552,7 +1551,6 @@ wispy
 witch
 witty
 woman
-women
 woody
 wooly
 woozy
