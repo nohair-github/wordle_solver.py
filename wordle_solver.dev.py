@@ -15,15 +15,11 @@
 #   as the answer - like "snafu" on Apr 9 - or perhaps any word from the valid guess list, or any word at all.
 #   Version 0.04 changed so both valid guess list, complete answer list, and unused answer list are analyzed, displayed,
 #   and can be checked.
+# Version 0.05: Corrected typos, moved entry section to function "enter_guess()", made quiet mode quieter,
+#   cleaned up logic once solution for repeated answers and curated answers is apparent.
 
-# Dev: Changes after 10/10/25 -
-#   Corrected typos
-#   Moved entry section to function "enter_guess()"
-#   Debug testing of enter_guess()
-#   Made quiet mode quieter:
-#       removed alert in Step 1 that letters are found in guess line 578 & 582
-#       removed alert in Step 2 that letters are found in guess line 737 & 744
-#   Cleaned up logic once solution for repeated answers and curated answers in apparent
+# Changes since 4/27/26:
+#   Automatically update answer lists in quiet mode
 
 import sys
 import os
@@ -144,14 +140,69 @@ def check(word, list):
 # Update past_wordle_answers.txt file
 
 def update_past_answer_list():
-    if yesno("Update past Wordle answers"):
-        # Open as file past_wordle_answers.txt
-        try:
-            with open('past_wordle_answers.txt', 'r') as past_answers_file_h:
-                past_answers_list = past_answers_file_h.readlines()
-        except Exception as err:
-            print(f"Unexpected error opening {fname} is",repr(err))
-            sys.exit("Error, line 57")
+
+    # Open as file past_wordle_answers.txt
+    try:
+        with open('past_wordle_answers.txt', 'r') as past_answers_file_h:
+            past_answers_list = past_answers_file_h.readlines()
+    except Exception as err:
+        print(f"Unexpected error opening {fname} is",repr(err))
+        sys.exit("Error, line 57")
+
+    if mode == 2:
+        print("First 5 words of past_answers list are:")
+        print(past_answers_list[:5])
+        print()
+        print("Last 5 words of past_answers list are:")
+        print(past_answers_list[-5:])
+        print()
+
+        if not yesno("Continue"):
+            sys.exit("update_answer_files aborted, line 71")
+
+    # Strip leading \n if present
+    if past_answers_list[0] == '\n':
+        del past_answers_list[0]
+
+    # Strip trailing \n if present
+    if past_answers_list[-1] == '\n':
+        del past_answers_list[-1]
+
+    # Strip out newlines and convert to comma separated list
+    past_answers_list = [i.strip('\n') for i in past_answers_list]
+
+    if mode == 2:
+        print("After stripping \\n's, first 5 words of past_answwers_list are:")
+        print(past_answers_list[:5])
+        print()
+        print("Last 5 words of past_answers list are:")
+        print(past_answers_list[-5:])
+        print()
+
+        if not yesno("Continue"):
+            sys.exit("update_answer_files aborted, line 94")
+
+    # Check if ANSWER is already in past_answers_list
+    if ANSWER in past_answers_list:
+        print(ANSWER + " is already in past_answer_list")
+
+    else:
+
+        # Append ANSWER to list
+        if mode >= 1:
+            a = len(past_answers_list)
+            print("past_answers_list has " + str(a) + " entries.")
+            print()
+
+            print("Appending " + ANSWER + " to past_answers_list.")
+            
+        past_answers_list.append(ANSWER)
+
+        if mode >= 1:
+            a = len(past_answers_list)
+            print()
+            print("past_answers_list now has " + str(a) + " entries.")
+            print()
 
         if mode == 2:
             print("First 5 words of past_answers list are:")
@@ -162,21 +213,16 @@ def update_past_answer_list():
             print()
 
             if not yesno("Continue"):
-                sys.exit("update_answer_files aborted, line 71")
+                sys.exit("update_answer_files aborted, line 127")
 
-        # Strip leading \n if present
-        if past_answers_list[0] == '\n':
-            del past_answers_list[0]
-
-        # Strip trailing \n if present
-        if past_answers_list[-1] == '\n':
-            del past_answers_list[-1]
-
-        # Strip out newlines and convert to comma separated list
-        past_answers_list = [i.strip('\n') for i in past_answers_list]
+        # Sort list alphabetically
+        if mode == 2:
+            print("Sorting past_answers_list alphabetically")
+            
+        past_answers_list.sort()
 
         if mode == 2:
-            print("After stripping \\n's, first 5 words of past_answwers_list are:")
+            print("First 5 words of past_answers list are:")
             print(past_answers_list[:5])
             print()
             print("Last 5 words of past_answers list are:")
@@ -184,129 +230,108 @@ def update_past_answer_list():
             print()
 
             if not yesno("Continue"):
-                sys.exit("update_answer_files aborted, line 94")
+                sys.exit("update_answer_files aborted, line 144")
 
-        # Check if ANSWER is already in past_answers_list
-        if ANSWER in past_answers_list:
-            print(ANSWER + " is already in past_answer_list")
+        # Convert list back to newline delimited list
+        past_answers_list = [i + '\n' for i in past_answers_list]
 
-        else:
+        if mode == 2:
+            print("First 5 words of past_answers list are:")
+            print(past_answers_list[:5])
+            print()
+            print("Last 5 words of past_answers list are:")
+            print(past_answers_list[-5:])
+            print()
 
-            # Append ANSWER to list
-            if mode >= 1:
-                a = len(past_answers_list)
-                print("past_answers_list has " + str(a) + " entries.")
-                print()
+            if not yesno("Continue"):
+                sys.exit("update_answer_files aborted, line 158")
 
-                print("Appending " + ANSWER + " to past_answers_list.")
-                
-            past_answers_list.append(ANSWER)
+        # Write list
+        try:
+            with open("past_wordle_answers.txt", "w") as past_answers_file_h:
+                past_answers_file_h.writelines(past_answers_list)
+        except Exception as err:
+            print(f"Unexpected error opening {fname} is ",repr(err))
+            sys.exit("Error in update_answer_files, line 166")
 
-            if mode >= 1:
-                a = len(past_answers_list)
-                print()
-                print("past_answers_list now has " + str(a) + " entries.")
-                print()
+        if mode == 2:
+            print("Updated past_answers_list file written")
+            print()
 
-            if mode == 2:
-                print("First 5 words of past_answers list are:")
-                print(past_answers_list[:5])
-                print()
-                print("Last 5 words of past_answers list are:")
-                print(past_answers_list[-5:])
-                print()
-
-                if not yesno("Continue"):
-                    sys.exit("update_answer_files aborted, line 127")
-    
-            # Sort list alphabetically
-            if mode == 2:
-                print("Sorting past_answers_list alphabetically")
-                
-            past_answers_list.sort()
-
-            if mode == 2:
-                print("First 5 words of past_answers list are:")
-                print(past_answers_list[:5])
-                print()
-                print("Last 5 words of past_answers list are:")
-                print(past_answers_list[-5:])
-                print()
-
-                if not yesno("Continue"):
-                    sys.exit("update_answer_files aborted, line 144")
-
-            # Convert list back to newline delimited list
-            past_answers_list = [i + '\n' for i in past_answers_list]
-
-            if mode == 2:
-                print("First 5 words of past_answers list are:")
-                print(past_answers_list[:5])
-                print()
-                print("Last 5 words of past_answers list are:")
-                print(past_answers_list[-5:])
-                print()
-
-                if not yesno("Continue"):
-                    sys.exit("update_answer_files aborted, line 158")
-
-            # Write list
-            try:
-                with open("past_wordle_answers.txt", "w") as past_answers_file_h:
-                    past_answers_file_h.writelines(past_answers_list)
-            except Exception as err:
-                print(f"Unexpected error opening {fname} is ",repr(err))
-                sys.exit("Error in update_answer_files, line 166")
-
-            if mode == 2:
-                print("Updated past_answers_list file written")
-                print()
-
-        update_unused_answers_list()
-        
-    else:
-        print("Be sure to update past_wordle_answers.txt.")
 
 # Update unused_wordle_answers.txt file       
 
 def update_unused_answers_list():
 
-    if yesno("Update unused Wordle answers"):
-        # Open as file unused_wordle_answers.txt
-
+    print()
+    if mode >= 1:
+        print("Updating unused_wordle_answers_list:")
         print()
+    
+    try:
+        with open("unused_wordle_answers.txt", "r") as unused_answers_file_h:
+            unused_answers_list = unused_answers_file_h.readlines()
+    except Exception as err:
+        print(f"Unexpected error opening {fname} is",repr(err))
+        sys.exit("Error in update_answer_files, line 185")
+
+    if mode == 2:
+        print("First 5 words of unused_answers list are:")
+        print(unused_answers_list[:5])
+        print()
+        print("Last 5 words of unused_answers list are:")
+        print(unused_answers_list[-5:])
+        print()
+
+    # Strip leading \n if present
+    if unused_answers_list[0] == '\n':
+        del past_answers_list[0]
+
+    # Strip trailing \n if present
+    if unused_answers_list[-1] == '\n':
+        del past_answers_list[-1]
+
+    # Strip out newlines and convert to comma separated list
+    unused_answers_list = [i.strip('\n') for i in unused_answers_list]
+
+    if mode == 2:
+        print("After stripping \\n's, first 5 words of unused_answers_list are:")
+        print(unused_answers_list[:5])
+        print()
+        print("Last 5 words of unused_answers list are:")
+        print(unused_answers_list[-5:])
+        print()
+
+        if not yesno("Continue"):
+            sys.exit("update_answer_files aborted, line 215")
+
+    if ANSWER in unused_answers_list:
+
         if mode >= 1:
-            print("Updating unused_wordle_answers_list:")
+            a = len(unused_answers_list)
+            print("unused_answers_list has " + str(a) + " entries.")
             print()
-        
-        try:
-            with open("unused_wordle_answers.txt", "r") as unused_answers_file_h:
-                unused_answers_list = unused_answers_file_h.readlines()
-        except Exception as err:
-            print(f"Unexpected error opening {fname} is",repr(err))
-            sys.exit("Error in update_answer_files, line 185")
+
+            print("Removing " + ANSWER + " from unused_answers_list.")
+            
+        unused_answers_list.remove(ANSWER)
+
+        if mode >= 1:
+            a = len(unused_answers_list)
+            print()
+            print("unused_answers_list now has " + str(a) + " entries.")
+            print()
 
         if mode == 2:
-            print("First 5 words of unused_answers list are:")
+            print("After removing " + ANSWER + ", first 5 words of unused_answers list are:")
             print(unused_answers_list[:5])
             print()
-            print("Last 5 words of unused_answers list are:")
-            print(unused_answers_list[-5:])
-            print()
 
-        # Strip leading \n if present
-        if unused_answers_list[0] == '\n':
-            del past_answers_list[0]
-
-        # Strip trailing \n if present
-        if unused_answers_list[-1] == '\n':
-            del past_answers_list[-1]
-
-        # Strip out newlines and convert to comma separated list
-        unused_answers_list = [i.strip('\n') for i in unused_answers_list]
+        # Convert list back to newline delimited list
+        unused_answers_list = [i + '\n' for i in unused_answers_list]
 
         if mode == 2:
-            print("After stripping \\n's, first 5 words of unused_answers_list are:")
+            print("After adding \\n's back in, first 5 words of unused_answers list are:")
             print(unused_answers_list[:5])
             print()
             print("Last 5 words of unused_answers list are:")
@@ -314,65 +339,26 @@ def update_unused_answers_list():
             print()
 
             if not yesno("Continue"):
-                sys.exit("update_answer_files aborted, line 215")
-
-        if ANSWER in unused_answers_list:
-
-            if mode >= 1:
-                a = len(unused_answers_list)
-                print("unused_answers_list has " + str(a) + " entries.")
-                print()
-
-                print("Removing " + ANSWER + " from unused_answers_list.")
-                
-            unused_answers_list.remove(ANSWER)
-
-            if mode >= 1:
-                a = len(unused_answers_list)
-                print()
-                print("unused_answers_list now has " + str(a) + " entries.")
-                print()
-
-            if mode == 2:
-                print("After removing " + ANSWER + ", first 5 words of unused_answers list are:")
-                print(unused_answers_list[:5])
-                print()
-
-            # Convert list back to newline delimited list
-            unused_answers_list = [i + '\n' for i in unused_answers_list]
-
-            if mode == 2:
-                print("After adding \\n's back in, first 5 words of unused_answers list are:")
-                print(unused_answers_list[:5])
-                print()
-                print("Last 5 words of unused_answers list are:")
-                print(unused_answers_list[-5:])
-                print()
-
-                if not yesno("Continue"):
-                    sys.exit("update_answer_files aborted, line 251")
+                sys.exit("update_answer_files aborted, line 251")
 
 
-            # Write modified unused_answers_list to file
-            try:
-                with open("unused_wordle_answers.txt", "w") as unused_answers_file_h:
-                    unused_answers_file_h.writelines(unused_answers_list)
-            except Exception as err:
-                print(f"Unexpected error opening {fname} is",repr(err))
-                sys.exit("Error in update_answer_files, line 260")
+        # Write modified unused_answers_list to file
+        try:
+            with open("unused_wordle_answers.txt", "w") as unused_answers_file_h:
+                unused_answers_file_h.writelines(unused_answers_list)
+        except Exception as err:
+            print(f"Unexpected error opening {fname} is",repr(err))
+            sys.exit("Error in update_answer_files, line 260")
 
-            if mode >= 1:
-                print("File written")
-                print()
+        if mode >= 1:
+            print("File written")
+            print()
 
-            sys.exit("Completed update of answer files")
-
-        else:
-            print(ANSWER + " is not in unused_answers.")
-            sys.exit("Error in update_answer_files, line 269")
+        sys.exit("Completed update of answer files")
 
     else:
-        print("Be sure to update unused_wordle_answers.txt.")
+        print(ANSWER + " is not in unused_answers.")
+        sys.exit("Error in update_unused_answer_list, line 365")
 
 
 # Function to display remaining valid guesses
@@ -705,9 +691,25 @@ for i in range(6):
 
         if ANSWER == guess_word:
             print("Wordle is solved.")
-            update_past_answer_list()
+            if mode = 0:
+                update_past_answer_list()
+                update_unused_answers_list()
+
+            else:
+                if yesno("Update past Wordle answers list"):
+                    update_past_answer_list()
+                else:
+                    print("Be sure to update past_wordle_answers.txt.")
+
+                if yesno("Update unused Wordle answers list"):
+                    update_unused_answers_list()
+                else:
+                    print("Be sure to update unused_wordle_answers.txt.")
+
             print("Ending program.")
             sys.exit(0)    
+
+
 
     else:
         # No letters entered
@@ -1036,7 +1038,7 @@ for i in range(6):
     # End of step 3
     #
 
-    # If answer is found ( len(current_answers) = 1 ), write to ANSWER, and update past answer lists
+    # If answer is found ( len(current_answers) = 1 ), prompt to enter answer as next guess
     if len(current_answers_list) == 1:
         print("\nWordle may be solved - assuming editors are using a word from the original answer list.")
         print("Answer is: " + current_answers_list[0])
