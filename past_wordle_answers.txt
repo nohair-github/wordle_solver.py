@@ -203,10 +203,12 @@ drive
 droll
 drunk
 duchy
+dusky
 dutch
 duvet
 dwarf
 dwelt
+eerie
 egret
 eject
 elder
@@ -271,6 +273,7 @@ forum
 found
 foyer
 frame
+freak
 fresh
 frock
 front
@@ -292,6 +295,7 @@ glean
 gloat
 gloom
 glory
+gloss
 glove
 glyph
 golem

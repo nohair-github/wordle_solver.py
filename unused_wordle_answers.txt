@@ -410,7 +410,6 @@ dully
 dummy
 dumpy
 dunce
-dusky
 dusty
 dwell
 dying
@@ -425,7 +424,6 @@ ebony
 eclat
 edict
 edify
-eerie
 eight
 eking
 elate
@@ -531,7 +529,6 @@ forty
 frail
 frank
 fraud
-freak
 freed
 freer
 friar
@@ -579,7 +576,6 @@ gleam
 glide
 glint
 globe
-gloss
 gnash
 gnome
 godly
