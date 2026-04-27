@@ -691,7 +691,7 @@ for i in range(6):
 
         if ANSWER == guess_word:
             print("Wordle is solved.")
-            if mode = 0:
+            if mode == 0:
                 update_past_answer_list()
                 update_unused_answers_list()
 

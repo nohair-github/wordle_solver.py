@@ -627,6 +627,7 @@ store
 story
 stout
 stove
+strut
 study
 sugar
 sulky
