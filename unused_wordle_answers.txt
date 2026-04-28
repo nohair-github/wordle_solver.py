@@ -89,7 +89,6 @@ baler
 balmy
 banjo
 barge
-baron
 basal
 basin
 basis
@@ -263,9 +262,7 @@ clear
 cleat
 cleft
 clerk
-cliff
 climb
-clink
 cloak
 clone
 close
@@ -1005,7 +1002,6 @@ purse
 pushy
 putty
 pygmy
-quack
 quail
 quake
 quark

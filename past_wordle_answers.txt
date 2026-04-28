@@ -59,6 +59,7 @@ badge
 badly
 baker
 banal
+baron
 basic
 basil
 baton
@@ -144,7 +145,9 @@ clasp
 class
 clean
 click
+cliff
 cling
+clink
 clock
 cloth
 clown
@@ -500,6 +503,7 @@ proxy
 prude
 pulpy
 purge
+quack
 qualm
 quart
 query
