@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # wordle_solver.dev.py
-# Wordle solver python script by gsb
+# Development version of wordle solver python script by gsb
 
 # Developed on MacOS 16.1 (21.6.0 Darwin Kernel Version 21.6.0: root:xnu-8020.240.7~1/RELEASE_X86_64),
 # using MacOS system python 3.10.7
@@ -27,7 +27,7 @@ import os.path
 
 print()
 print("Welcome to wordle_solver, your assistant at playing Wordle.")
-print("(wordle_solver.dev.py)")
+print("This is the development version (wordle_solver.dev.py)")
 print()
 
 # Check if proper python version is running script
