@@ -19,7 +19,7 @@
 # Changes since 4/27/26:
 #   Automatically update answer lists in quiet mode
 #   Edited update_past_answer_list() and update_unused_answers_list() to exit with warning if answer is apparent repeat
-#   Converted to wordle_solver.dev1.py and main.py format
+#   Converted to wordle_solver.dev1.py and main() format
 
 import sys
 import os
@@ -56,7 +56,7 @@ def yesno(question):
 
 # Function to enter and sanatize entry of guess
 
-def enter_guess():
+def enter_guess(i):
 
     while True:
         print("Enter guesses as 5 letter word in lowercase.")
@@ -118,11 +118,6 @@ def enter_guess():
                             print(guess_word + " is not a valid guess (hard mode).")
                 
                 break
-        
-    # Add entry to to guess - list of guesses
-    guess.append(guess_word)
-    if mode == 2:
-        print("Guess #", i+1, "is ", guess[i])
 
     return(guess_word)
 
@@ -139,7 +134,7 @@ def check(word, list):
 
 # Update past_wordle_answers.txt file
 
-def update_past_answer_list():
+def update_past_answer_list(answer):
 
     # Open as file past_wordle_answers.txt
     try:
@@ -183,8 +178,8 @@ def update_past_answer_list():
             sys.exit("update_answer_files aborted, line 94")
 
     # Check if ANSWER is already in past_answers_list
-    if ANSWER in past_answers_list:
-        print(ANSWER + " is already in past_answer_list")
+    if answer in past_answers_list:
+        print(answer + " is already in past_answer_list")
         print("This is likely a 'curated' answer, that is, a repeat.")
 
     else:
@@ -195,9 +190,9 @@ def update_past_answer_list():
             print("past_answers_list has " + str(a) + " entries.")
             print()
 
-            print("Appending " + ANSWER + " to past_answers_list.")
+            print("Appending " + answer + " to past_answers_list.")
             
-        past_answers_list.append(ANSWER)
+        past_answers_list.append(answer)
 
         if mode >= 1:
             a = len(past_answers_list)
@@ -262,7 +257,7 @@ def update_past_answer_list():
 
 # Update unused_wordle_answers.txt file       
 
-def update_unused_answers_list():
+def update_unused_answers_list(answer):
 
     print()
     if mode >= 1:
@@ -306,16 +301,16 @@ def update_unused_answers_list():
         if not yesno("Continue"):
             sys.exit("update_answer_files aborted, line 215")
 
-    if ANSWER in unused_answers_list:
+    if answer in unused_answers_list:
 
         if mode >= 1:
             a = len(unused_answers_list)
             print("unused_answers_list has " + str(a) + " entries.")
             print()
 
-            print("Removing " + ANSWER + " from unused_answers_list.")
+            print("Removing " + answer + " from unused_answers_list.")
             
-        unused_answers_list.remove(ANSWER)
+        unused_answers_list.remove(answer)
 
         if mode >= 1:
             a = len(unused_answers_list)
@@ -324,7 +319,7 @@ def update_unused_answers_list():
             print()
 
         if mode == 2:
-            print("After removing " + ANSWER + ", first 5 words of unused_answers list are:")
+            print("After removing " + answer + ", first 5 words of unused_answers list are:")
             print(unused_answers_list[:5])
             print()
 
@@ -358,19 +353,19 @@ def update_unused_answers_list():
         sys.exit("Completed update of answer files")
 
     else:
-        print(ANSWER + " is not in unused_answers.")
+        print(answer + " is not in unused_answers.")
         print("This must be a 'curated' answer, namely a repeat.")
         sys.exit()
 
 
 # Function to display remaining valid guesses
 
-def display_valid_guesses():
+def display_valid_guesses(valid_guess_list):
 
-    print("Abridged valid guess list contains " + str(len(abridged_valid_guesses)) + " words")
+    print("Abridged valid guess list contains " + str(len(valid_guess_list)) + " words")
 
     if yesno("Display abridged valid guess list"):
-        for word in abridged_valid_guesses:
+        for word in valid_guess_list:
             print(word)
         print()
 
@@ -379,7 +374,7 @@ def display_valid_guesses():
     if yesno("Print letter frequency in possible guesses from abridged valid guess list"):
 
         # Convert abdidged_guess_list to string
-        abridged_guess_string = ' '.join(abridged_valid_guesses)
+        abridged_guess_string = ' '.join(valid_guess_list)
         
         # Create dict containing letter frequency    
         letter_frequency = {}
@@ -403,7 +398,7 @@ def display_valid_guesses():
 def main():
 
     ## Start-up
-    global hard, mode, ANSWER, wrong, valid_guesses, guess, abridged_valid_guesses
+    global mode, hard, valid_guesses, abridged_valid_guesses
             
     # Clear old tmp files from prior runs
 
@@ -538,7 +533,13 @@ def main():
         if mode == 2:
             print("Calling 'enter_guess' function")
 
-        guess_word = enter_guess()
+        guess_word = enter_guess(i)
+
+        # Add entry to to guess - list of guesses
+        guess.append(guess_word)
+        if mode == 2:
+            print("Guess #", i+1, "is ", guess[i])
+
         wrong = guess_word
 
         if mode == 2:
@@ -699,17 +700,17 @@ def main():
             if ANSWER == guess_word:
                 print("Wordle is solved.")
                 if mode == 0:
-                    update_past_answer_list()
-                    update_unused_answers_list()
+                    update_past_answer_list(ANSWER)
+                    update_unused_answers_list(ANSWER)
 
                 else:
                     if yesno("Update past Wordle answers list"):
-                        update_past_answer_list()
+                        update_past_answer_list(ANSWER)
                     else:
                         print("Be sure to update past_wordle_answers.txt manually to improve accuracy.")
 
                     if yesno("Update unused Wordle answers list"):
-                        update_unused_answers_list()
+                        update_unused_answers_list(ANSWER)
                     else:
                         print("Be sure to update unused_wordle_answers.txt manually to improve accuracy.")
 
@@ -1182,7 +1183,7 @@ def main():
         if hard == 1:
             print("You are playing in hard mode.")
             print("These are your remaining valid guesses.")
-            display_valid_guesses()
+            display_valid_guesses(abridged_valid_guesses)
 
         # End of Step 5
         
@@ -1191,7 +1192,7 @@ def main():
         print()
 
         if yesno("Would you like to review the remaining " + str(len(abridged_valid_guesses)) + " valid guesses at this time"):
-            display_valid_guesses()
+            display_valid_guesses(abridged_valid_guesses)
 
     # End of main loop
 
