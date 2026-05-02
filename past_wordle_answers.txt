@@ -486,6 +486,7 @@ plate
 plaza
 pleat
 pluck
+plume
 point
 poise
 poker
@@ -733,6 +734,7 @@ wacky
 waltz
 waste
 watch
+waxen
 weary
 weave
 wedge

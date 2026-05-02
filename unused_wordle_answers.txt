@@ -956,7 +956,6 @@ plead
 plied
 plier
 plumb
-plume
 plump
 plunk
 plush
@@ -1506,7 +1505,6 @@ waive
 warty
 water
 waver
-waxen
 weedy
 weigh
 weird
