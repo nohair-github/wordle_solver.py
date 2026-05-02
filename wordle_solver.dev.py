@@ -20,6 +20,7 @@
 
 # Changes since 4/27/26:
 #   Automatically update answer lists in quiet mode
+#   Edited update_past_answer_list() and update_unused_answers_list() to exit with warning if answer is apparent repeat
 
 import sys
 import os
@@ -185,6 +186,7 @@ def update_past_answer_list():
     # Check if ANSWER is already in past_answers_list
     if ANSWER in past_answers_list:
         print(ANSWER + " is already in past_answer_list")
+        print("This is likely a 'curated' answer, that is, a repeat.")
 
     else:
 
@@ -358,7 +360,8 @@ def update_unused_answers_list():
 
     else:
         print(ANSWER + " is not in unused_answers.")
-        sys.exit("Error in update_unused_answer_list, line 365")
+        print("This must be a 'curated' answer, namely a repeat.")
+        sys.exit()
 
 
 # Function to display remaining valid guesses
@@ -699,12 +702,12 @@ for i in range(6):
                 if yesno("Update past Wordle answers list"):
                     update_past_answer_list()
                 else:
-                    print("Be sure to update past_wordle_answers.txt.")
+                    print("Be sure to update past_wordle_answers.txt manually to improve accuracy.")
 
                 if yesno("Update unused Wordle answers list"):
                     update_unused_answers_list()
                 else:
-                    print("Be sure to update unused_wordle_answers.txt.")
+                    print("Be sure to update unused_wordle_answers.txt manually to improve accuracy.")
 
             print("Ending program.")
             sys.exit(0)    
