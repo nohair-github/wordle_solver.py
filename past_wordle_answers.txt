@@ -52,6 +52,7 @@ attic
 audit
 avail
 avert
+avoid
 awake
 awful
 axiom
@@ -127,6 +128,7 @@ champ
 chant
 chard
 charm
+chasm
 cheat
 cheek
 chest
@@ -325,6 +327,7 @@ guano
 guava
 guild
 gully
+gumbo
 gunky
 guppy
 hairy

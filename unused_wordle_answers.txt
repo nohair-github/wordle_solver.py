@@ -73,7 +73,6 @@ audio
 augur
 aunty
 avian
-avoid
 await
 award
 aware
@@ -232,7 +231,6 @@ chalk
 chaos
 chart
 chase
-chasm
 cheap
 check
 cheer
@@ -614,7 +612,6 @@ guile
 guilt
 guise
 gulch
-gumbo
 gummy
 gusto
 gusty
