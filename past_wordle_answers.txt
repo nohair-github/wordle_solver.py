@@ -176,6 +176,7 @@ credo
 crept
 crimp
 croak
+crock
 cross
 cruel
 crust
@@ -636,6 +637,7 @@ strut
 study
 sugar
 sulky
+sully
 surer
 surge
 surly
