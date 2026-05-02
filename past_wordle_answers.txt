@@ -242,6 +242,7 @@ feign
 ferry
 fewer
 field
+fiery
 fifty
 finer
 first
