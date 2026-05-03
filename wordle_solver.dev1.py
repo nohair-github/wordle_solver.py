@@ -27,7 +27,7 @@ import os.path
 
 print()
 print("Welcome to wordle_solver, your assistant at playing Wordle.")
-print("This is the development version (wordle_solver.dev1.py)")
+print("This is the development-1 version (wordle_solver.dev1.py)")
 print()
 
 # Check if proper python version is running script
@@ -57,6 +57,7 @@ def yesno(question):
 # Function to enter and sanatize entry of guess
 
 def enter_guess(i):
+# Also depends on global variables 'valid_guesses' and 'abridged_valid_guesses'
 
     while True:
         print("Enter guesses as 5 letter word in lowercase.")
@@ -537,6 +538,7 @@ def main():
 
         # Add entry to to guess - list of guesses
         guess.append(guess_word)
+
         if mode == 2:
             print("Guess #", i+1, "is ", guess[i])
 
@@ -1202,3 +1204,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    sys.exit(0)
