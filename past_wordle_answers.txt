@@ -415,6 +415,7 @@ magic
 maize
 major
 maker
+manic
 manly
 manor
 maple
@@ -507,10 +508,12 @@ probe
 prove
 proxy
 prude
+puffy
 pulpy
 purge
 quack
 qualm
+quark
 quart
 query
 quiet

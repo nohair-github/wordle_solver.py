@@ -781,7 +781,6 @@ mange
 mango
 mangy
 mania
-manic
 mason
 match
 mauve
@@ -985,7 +984,6 @@ prune
 psalm
 pubic
 pudgy
-puffy
 pulse
 punch
 pupil
@@ -998,7 +996,6 @@ putty
 pygmy
 quail
 quake
-quark
 quash
 quasi
 queen
