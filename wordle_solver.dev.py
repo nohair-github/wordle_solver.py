@@ -21,7 +21,7 @@
 # Changes since 4/27/26: 
 #   Automatically update answer lists in quiet mode
 #   Edited update_past_answer_list() and update_unused_answers_list() to exit with warning if answer is apparent repeat
-#   Kept dev as a procedural script and wrotee dev1 in main() idiom. 
+#   Kept dev as a procedural script and wrote dev1 version using main() idiom. 
 
 import sys
 import os

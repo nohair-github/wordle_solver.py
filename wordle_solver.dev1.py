@@ -19,7 +19,8 @@
 # Changes since 4/27/26:
 #   Automatically update answer lists in quiet mode
 #   Edited update_past_answer_list() and update_unused_answers_list() to exit with warning if answer is apparent repeat
-#   Converted to wordle_solver.dev1.py and main() format
+#   dev1: Converted dev version to wordle_solver.dev1.py which uses main() idiom
+#   dev1: Stripped shebang out
 
 ## Imports
 

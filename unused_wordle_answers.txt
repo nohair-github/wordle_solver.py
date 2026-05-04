@@ -418,7 +418,6 @@ ebony
 eclat
 edict
 edify
-eight
 eking
 elate
 elbow
@@ -1063,7 +1062,6 @@ rigor
 rinse
 ripen
 risen
-riser
 risky
 river
 rivet

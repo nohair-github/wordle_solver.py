@@ -216,6 +216,7 @@ dwarf
 dwelt
 eerie
 egret
+eight
 eject
 elder
 elfin
@@ -536,6 +537,7 @@ revel
 rhino
 rhyme
 riper
+riser
 rival
 robin
 robot
