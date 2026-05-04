@@ -21,14 +21,20 @@
 #   Edited update_past_answer_list() and update_unused_answers_list() to exit with warning if answer is apparent repeat
 #   Converted to wordle_solver.dev1.py and main() format
 
+## Imports
+
 import sys
 import os
 import os.path
+
+## Description
 
 print()
 print("Welcome to wordle_solver, your assistant at playing Wordle.")
 print("This is the development-1 version (wordle_solver.dev1.py)")
 print()
+
+#$ Set up
 
 # Check if proper python version is running script
 MIN_PYTHON = (3, 10, 6)
@@ -36,9 +42,7 @@ if sys.version_info < MIN_PYTHON:
     print("You are running Python ", sys.version_info)
     sys.exit("Python %s.%s.%s or later is required.\n" % MIN_PYTHON)
 
-# Set up
-
-# Functions
+## Functions
 
 # Simple yes/no function
 
@@ -54,7 +58,7 @@ def yesno(question):
     return False
 
 
-# Function to enter and sanatize entry of guess
+# Function to enter and sanitize entry of guess
 
 def enter_guess(i):
 # Also depends on global variables 'valid_guesses' and 'abridged_valid_guesses'
@@ -1201,6 +1205,8 @@ def main():
 
     print ("exiting...")
     sys.exit("Program completed")
+
+## Entry point
 
 if __name__ == "__main__":
     main()
