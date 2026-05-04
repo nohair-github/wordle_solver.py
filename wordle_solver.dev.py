@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # wordle_solver.dev.py
-# Development version of wordle solver python script by gsb
+# Development version of wordle solver python script by gsb - as a simple procedural script
 
 # Developed on MacOS 16.1 (21.6.0 Darwin Kernel Version 21.6.0: root:xnu-8020.240.7~1/RELEASE_X86_64),
 # using MacOS system python 3.10.7
@@ -18,9 +18,10 @@
 # Version 0.05: Corrected typos, moved entry section to function "enter_guess()", made quiet mode quieter,
 #   cleaned up logic once solution for repeated answers and curated answers is apparent.
 
-# Changes since 4/27/26:
+# Changes since 4/27/26: 
 #   Automatically update answer lists in quiet mode
 #   Edited update_past_answer_list() and update_unused_answers_list() to exit with warning if answer is apparent repeat
+#   Kept dev as a procedural script and wrotee dev1 in main() idiom. 
 
 import sys
 import os
