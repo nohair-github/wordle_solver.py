@@ -389,6 +389,7 @@ laden
 lapel
 lapse
 larva
+latch
 layer
 leafy
 leapt
@@ -712,6 +713,7 @@ twice
 twine
 ulcer
 ultra
+umbra
 under
 undue
 unfed

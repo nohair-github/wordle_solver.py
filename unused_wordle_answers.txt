@@ -713,7 +713,6 @@ lance
 lanky
 large
 lasso
-latch
 later
 lathe
 latte
@@ -1442,7 +1441,6 @@ twist
 twixt
 tying
 udder
-umbra
 uncle
 uncut
 undid
