@@ -474,6 +474,7 @@ panel
 panic
 paper
 parer
+parka
 parry
 patty
 pause
@@ -557,6 +558,7 @@ rusty
 saint
 salad
 salsa
+satin
 saute
 scald
 scare

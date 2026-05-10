@@ -901,7 +901,6 @@ paler
 palsy
 pansy
 papal
-parka
 parse
 party
 pasta
@@ -1090,7 +1089,6 @@ sandy
 saner
 sappy
 sassy
-satin
 satyr
 sauce
 saucy
