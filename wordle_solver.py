@@ -23,7 +23,7 @@
 #   Made quiet mode quieter:
 #       removed alert in Step 1 that letters are found in guess line 578 & 582
 #       removed alert in Step 2 that letters are found in guess line 737 & 744
-#   Cleaned up logic once solution for repeated answers and curated answers in apparent
+#   Cleaned up logic once solution for repeated answers and curated answers is apparent
 
 import sys
 import os
