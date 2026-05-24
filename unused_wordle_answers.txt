@@ -243,7 +243,6 @@ chock
 choir
 chore
 chose
-chuck
 chump
 churn
 circa
@@ -843,7 +842,6 @@ newer
 newly
 nicer
 niche
-niece
 ninja
 ninny
 noble

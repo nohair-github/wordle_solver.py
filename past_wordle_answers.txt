@@ -139,6 +139,7 @@ chief
 chill
 choke
 chord
+chuck
 chunk
 chute
 cider
@@ -460,6 +461,7 @@ nasty
 natal
 naval
 needy
+niece
 night
 ninth
 nylon
