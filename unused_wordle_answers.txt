@@ -276,7 +276,6 @@ conch
 copse
 coral
 corer
-couch
 cough
 coupe
 court
