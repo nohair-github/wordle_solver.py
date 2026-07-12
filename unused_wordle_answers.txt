@@ -247,7 +247,6 @@ chump
 churn
 circa
 civil
-clack
 claim
 clamp
 clang

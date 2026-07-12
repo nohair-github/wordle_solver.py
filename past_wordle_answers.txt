@@ -146,6 +146,7 @@ cider
 cigar
 cinch
 civic
+clack
 clasp
 class
 clean
